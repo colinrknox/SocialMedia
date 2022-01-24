@@ -60,12 +60,6 @@ FROM user_posts
 RIGHT JOIN post_comments ON  user_posts.id = post_comments.post_id;
 
 
---INSERT INTO user_profile VALUES (DEFAULT, 'user_profile_username',  crypt('user_profile_password', gen_salt('bf')), 'user_profile_name', 'user_profile_about', DEFAULT);
---INSERT INTO user_post VALUES (DEFAULT, 2, 'user_post_text ', DEFAULT, DEFAULT);
---INSERT INTO post_comment VALUES(DEFAULT, 2, 'post_comment_text ', 2);
---INSERT INTO post_comment VALUES(DEFAULT, 2, 'post_comment_text ', 2);
-
-
 SELECT * FROM user_profiles;
 SELECT * FROM user_posts;
 SELECT * FROM post_comments;
@@ -75,6 +69,4 @@ SELECT * FROM post_likes;
 --optional
 --direct
 --global_chat
-
-
 
