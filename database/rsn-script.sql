@@ -2,9 +2,6 @@ DROP TABLE post_comments;
 DROP TABLE post_likes;
 DROP TABLE user_posts;
 DROP TABLE user_profiles;
-DROP EXTENSION pgcrypto;
-
-CREATE EXTENSION pgcrypto;
 
 CREATE TABLE user_profiles (
 	id SERIAL,
@@ -25,6 +22,7 @@ CREATE TABLE user_posts (
 	author INT NOT NULL,
 	"text" VARCHAR(500) NOT NULL,
 	image BYTEA,
+	creation_date TIMESTAMP NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (author) REFERENCES user_profiles (id) ON DELETE CASCADE
 );
@@ -35,6 +33,7 @@ CREATE TABLE post_comments (
 	author INT NOT NULL,
 	"text" VARCHAR(500) NOT NULL,
 	post_id INT NOT NULL,
+	creation_date TIMESTAMP NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (author) REFERENCES user_profiles (id),
 	FOREIGN KEY (post_id) REFERENCES user_posts (id) ON DELETE CASCADE
