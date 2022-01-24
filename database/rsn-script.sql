@@ -14,7 +14,7 @@ CREATE TABLE user_profiles (
 	"password" BYTEA NOT NULL,
 	password_salt BYTEA NOT NULL,
 	about VARCHAR(500),
-	photo BYTEA,
+	photo VARCHAR(512),
 	creation_date TIMESTAMP NOT NULL,
 	PRIMARY KEY (id)
 );
