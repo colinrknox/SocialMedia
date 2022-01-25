@@ -4,22 +4,19 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "post_likes")
+@IdClass(PostLikeId.class)
 public class PostLike implements Serializable {
-
-	private static final long serialVersionUID = -4300187187354323663L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int id;
 	int profileId;
+	@Id
 	int postId;
 	
 	public PostLike() {
@@ -28,17 +25,8 @@ public class PostLike implements Serializable {
 	
 	public PostLike(int id, int profileId, int postId) {
 		super();
-		this.id = id;
 		this.profileId = profileId;
 		this.postId = postId;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public int getProfileId() {
@@ -59,12 +47,12 @@ public class PostLike implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PostLike [id=" + id + ", profileId=" + profileId + ", postId=" + postId + "]";
+		return "PostLike [profileId=" + profileId + ", postId=" + postId + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, postId, profileId);
+		return Objects.hash(postId, profileId);
 	}
 
 	@Override
@@ -76,6 +64,6 @@ public class PostLike implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		PostLike other = (PostLike) obj;
-		return id == other.id && postId == other.postId && profileId == other.profileId;
+		return postId == other.postId && profileId == other.profileId;
 	}
 }
