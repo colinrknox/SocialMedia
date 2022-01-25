@@ -1,16 +1,16 @@
 package com.revature.controller;
 
-import java.io.IOException;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.model.UserProfile;
 import com.revature.service.UserProfileService;
 
@@ -19,16 +19,20 @@ public class UserProfileController {
 
 	UserProfileService serv;
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@RequestBody Map<String, Object> json) throws IOException {
+	@PostMapping(value = "/login")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public UserProfile login(HttpServletRequest req, @RequestBody Map<String, Object> json) {
 		UserProfile user = serv.authenticate((String)json.get("email"), (String)json.get("password"));
-		return new ObjectMapper().writeValueAsString(user);
+		if (user != null)
+			req.getSession().setAttribute("account", user);
+		return user;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(@RequestBody UserProfile user) throws JsonProcessingException {
+	@PostMapping(value = "/register")
+	@ResponseStatus(HttpStatus.CREATED)
+	public UserProfile register(@RequestBody UserProfile user) {
 		UserProfile userModified = serv.save(user);
-		return new ObjectMapper().writeValueAsString(userModified);
+		return userModified;
 	}
 
 	@Autowired
