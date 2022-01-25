@@ -30,6 +30,7 @@ public class UserProfileService {
 	public UserProfile save(UserProfile user) {
 		user.setCreationDate(new Date(System.currentTimeMillis()));
 		user.setPassword(HashUtil.getHashedPassword(HashUtil.getSalt(), user.getPassword()));
+		user.setEmail(user.getEmail().toLowerCase());
 		return repo.save(user);
 	}
 	
