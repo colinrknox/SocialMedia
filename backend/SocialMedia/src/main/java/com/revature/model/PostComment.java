@@ -14,8 +14,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "post_comments")
 public class PostComment implements Serializable {
-
-	private static final long serialVersionUID = 5685376749684752639L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
