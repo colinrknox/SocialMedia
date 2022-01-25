@@ -8,8 +8,7 @@ CREATE TABLE user_profiles (
 	email VARCHAR(254) NOT NULL UNIQUE,
 	first_name VARCHAR(50) NOT NULL,
 	last_name VARCHAR(50) NOT NULL,
-	"password" BYTEA NOT NULL,
-	password_salt BYTEA NOT NULL,
+	"password" VARCHAR(512) NOT NULL,
 	about VARCHAR(500),
 	photo VARCHAR(512),
 	creation_date TIMESTAMP NOT NULL,
@@ -21,7 +20,7 @@ CREATE TABLE user_posts (
 	id SERIAL,
 	author INT NOT NULL,
 	"text" VARCHAR(500) NOT NULL,
-	image BYTEA,
+	image VARCHAR(512),
 	creation_date TIMESTAMP NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (author) REFERENCES user_profiles (id) ON DELETE CASCADE
