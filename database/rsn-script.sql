@@ -40,10 +40,9 @@ CREATE TABLE post_comments (
 
 
 CREATE TABLE post_likes (
-	id SERIAL,
 	profile_id INT NOT NULL,
 	post_id INT NOT NULL,
-	PRIMARY KEY (id),
+	PRIMARY KEY (profile_id, post_id),
 	FOREIGN KEY (profile_id) REFERENCES user_profiles (id),
 	FOREIGN KEY (post_id) REFERENCES user_posts (id) ON DELETE CASCADE
 );
