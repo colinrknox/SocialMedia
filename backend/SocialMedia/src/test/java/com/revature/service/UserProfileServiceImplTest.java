@@ -1,6 +1,9 @@
 package com.revature.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -12,10 +15,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.revature.dao.UserProfileDao;
 import com.revature.model.UserProfile;
+import com.revature.utils.PasswordHash;
 
 class UserProfileServiceImplTest {
 
-	@MockBean
 	static UserProfileDao userDaoMock;
 	UserProfileServiceImpl serv;
 	
@@ -23,13 +26,14 @@ class UserProfileServiceImplTest {
 	static String email;
 	static String password;
 	
-	static String hashedPassword;
-	
+	static PasswordHash hashedPassword;
+		
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		email = "user@gmail.com";
 		password = "password";
 		userDaoMock = Mockito.mock(UserProfileDao.class);
+		hashedPassword = new PasswordHash.Builder().setPassword(password).build();
 	}
 
 	@AfterAll
@@ -42,7 +46,7 @@ class UserProfileServiceImplTest {
 		serv.setRepo(userDaoMock);
 		mockProfile = new UserProfile();
 		mockProfile.setEmail(email);
-		mockProfile.setPassword(hashedPassword);
+		mockProfile.setPassword(hashedPassword.getDbPassword());
 	}
 
 	@AfterEach
@@ -69,19 +73,27 @@ class UserProfileServiceImplTest {
 	
 	@Test
 	void testSaveSuccess() {
-		Mockito.when(userDaoMock.save(mockProfile)).thenReturn(mockProfile);
 		mockProfile.setPassword(password);
 		mockProfile.setEmail(email.toUpperCase());
+		
+		assertNull(mockProfile.getCreationDate());
+		
+		Mockito.when(userDaoMock.save(mockProfile)).thenReturn(mockProfile);
 		
 		UserProfile validate = serv.save(mockProfile);
 		
 		assertEquals(email, validate.getEmail());
-		assertEquals(hashedPassword, validate.getPassword());
+		assertNotNull(mockProfile.getCreationDate());
+		assertNotEquals(mockProfile.getPassword(), password);
 	}
 	
 	@Test
 	void testSaveFailure() {
+		Mockito.when(userDaoMock.save(mockProfile)).thenReturn(null);
 		
+		UserProfile validate = serv.save(mockProfile);
+		
+		assertNull(validate);
 	}
 
 }

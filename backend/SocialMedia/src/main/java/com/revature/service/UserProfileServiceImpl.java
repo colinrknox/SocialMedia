@@ -14,6 +14,7 @@ import com.revature.utils.PasswordHash;
 public class UserProfileServiceImpl implements UserProfileService {
 	
 	private UserProfileDao repo;
+	private PasswordHash hash;
 	
 	@Override
 	public Optional<UserProfile> findById(int id) {
@@ -27,7 +28,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 			return null;
 		}
 		String[] tokens = u.getPassword().split(":");
-		PasswordHash hash = PasswordHash.builder()
+		hash = PasswordHash.builder()
 				.setSalt(tokens[1])
 				.setPassword(password)
 				.setIterations(tokens[0])
@@ -37,7 +38,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 	
 	@Override
 	public UserProfile save(UserProfile user) {
-		PasswordHash hash = PasswordHash.builder()
+		hash = PasswordHash.builder()
 				.setPassword(user.getPassword())
 				.build();
 		user.setCreationDate(new Date(System.currentTimeMillis()));
@@ -46,6 +47,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 		return repo.save(user);
 	}
 	
+	public void setHash(PasswordHash hash) {
+		this.hash = hash;
+	}
 	
 	@Autowired
 	public void setRepo(UserProfileDao repo) {
