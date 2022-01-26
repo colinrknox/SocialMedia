@@ -3,12 +3,14 @@ package com.revature.controller;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.model.UserProfile;
@@ -47,6 +49,16 @@ public class UserProfileController {
 	public ResponseEntity<UserProfile> register(@RequestBody UserProfile user) {
 		serv.save(user);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+	
+	/***
+	 * Remove session when user logs out
+	 * @param session
+	 */
+	@PostMapping(value = "/logout")
+	@ResponseStatus(HttpStatus.OK)
+	public void logout(HttpSession session) {
+		session.invalidate();
 	}
 
 	@Autowired
