@@ -11,4 +11,6 @@ public interface UserProfileService {
 	UserProfile authenticate(String email, String password);
 
 	UserProfile save(UserProfile user);
+	
+	void saveAbout(UserProfile user, String about);
 }

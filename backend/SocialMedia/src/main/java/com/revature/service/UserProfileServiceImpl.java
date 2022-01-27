@@ -55,4 +55,10 @@ public class UserProfileServiceImpl implements UserProfileService {
 	public void setRepo(UserProfileDao repo) {
 		this.repo = repo;
 	}
+	
+	@Override
+	public void saveAbout(UserProfile user, String about) {
+		user.setAbout(about);
+		repo.save(user);
+	}
 }
