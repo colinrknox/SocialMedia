@@ -21,5 +21,8 @@ public interface UserPostDao extends JpaRepository<UserPost, Long> {
 	
 	
 	//Added by LuisR
-	public List<UserPost> findAllByidOrderByCreationDateDesc(int id);
+	public List<UserPost> findAllByid(int id);
+	
+	//added by Luis R
+	public List<UserPost> findAllByauthor(int author);
 }
