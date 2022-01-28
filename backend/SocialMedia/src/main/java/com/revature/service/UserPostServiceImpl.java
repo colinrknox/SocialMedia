@@ -29,4 +29,11 @@ public class UserPostServiceImpl implements UserPostService {
 	public void setLikeRepo(PostLikeDao likeRepo) {
 		this.likeRepo = likeRepo;
 	}
+
+	//Added by LuisR
+	@Override
+	public List<UserPost> findUserPostDesc(int id) 
+	{
+		return postRepo.findAllByidOrderByCreationDateDesc(id);
+	}
 }

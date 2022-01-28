@@ -18,4 +18,8 @@ import com.revature.model.UserPost;
 public interface UserPostDao extends JpaRepository<UserPost, Long> {
 
 	public List<UserPost> findAllByOrderByCreationDateDesc();
+	
+	
+	//Added by LuisR
+	public List<UserPost> findAllByidOrderByCreationDateDesc(int id);
 }

@@ -13,4 +13,6 @@ public interface UserProfileService {
 	UserProfile save(UserProfile user);
 	
 	void saveAbout(UserProfile user, String about);
+	
+	
 }

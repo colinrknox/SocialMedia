@@ -23,4 +23,11 @@ public class UserPostController {
 	public void setServ(UserPostService serv) {
 		this.serv = serv;
 	}
+	
+	//Added by LuisR
+	@GetMapping("/api/userPosts")
+	public List<UserPost> getUserPosts(int id)
+	{
+		return serv.findUserPostDesc(id);
+	}
 }
