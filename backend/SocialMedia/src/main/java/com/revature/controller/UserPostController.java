@@ -54,15 +54,13 @@ public class UserPostController {
 	
 	//Added by LuisR
 	@GetMapping("/api/userPosts")
-	public List<UserPost> getUserPosts(int id)
-	{
+	public List<UserPost> getUserPosts(int id) {
 		return serv.findCertainUserPostDesc(id);
 	}
 	
 	//added by Luis R
 	@GetMapping("/api/allUserPosts")
-	public List<UserPost> getAllPostsByAuthor(int author)
-	{
+	public List<UserPost> getAllPostsByAuthor(int author) {
 		return serv.findAllPostsOfUser(author);
 	}
 }
