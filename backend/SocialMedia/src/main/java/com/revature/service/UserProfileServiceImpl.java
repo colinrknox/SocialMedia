@@ -1,7 +1,6 @@
 package com.revature.service;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
