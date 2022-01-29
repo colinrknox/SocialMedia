@@ -1,5 +1,7 @@
 package com.revature.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +15,10 @@ import com.revature.model.UserPost;
  *
  */
 @Repository
-public interface UserPostDao extends JpaRepository<UserPost, Long> {
+public interface UserPostDao extends JpaRepository<UserPost, Integer> {
 
+	public List<UserPost> findAllByOrderByCreationDateDesc();
+	
+	//Added by LuisR
+	public List<UserPost> findByAuthorOrderByCreationDateDesc(Integer id);
 }
