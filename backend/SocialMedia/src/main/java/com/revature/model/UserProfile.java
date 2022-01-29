@@ -1,8 +1,7 @@
 package com.revature.model;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Objects;
+import java.time.Instant;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,12 +23,12 @@ public class UserProfile implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int id;
+	Integer id;
 	String email;
 	String firstName;
 	String lastName;
 	String password;
 	String about;
 	String photo;
-	Date creationDate;
+	Instant creationDate;
 }

@@ -1,28 +1,23 @@
 package com.revature.service;
 
 
-import java.sql.Timestamp;
-
 import java.util.List;
 
+import com.revature.model.PostLike;
 import com.revature.model.UserPost;
+import com.revature.model.UserProfile;
 
 
 public interface UserPostService {
 
-	int getPostLikes(int postId);
+	int getPostLikes(Integer postId);
 	
-
-	String createPost(int author, String text, String image, Timestamp creationDate);
-	String createLike(int profileId, int postId);
+	UserPost createPost(UserProfile user, UserPost post);
+	
+	PostLike createLike(Integer profileId, Integer postId);
 
 	List<UserPost> findAllPostsDesc();
 
-	
 	//Added by LuisR
-	List<UserPost> findCertainUserPostDesc(int id);
-	
-	//added by LuisR
-	List<UserPost> findAllPostsOfUser(int author);
-
+	List<UserPost> findUserPostsDesc(Integer author);
 }

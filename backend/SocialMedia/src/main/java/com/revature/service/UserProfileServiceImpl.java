@@ -1,5 +1,6 @@
 package com.revature.service;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.Optional;
 
@@ -18,7 +19,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 	
 	@Override
 	public Optional<UserProfile> findById(int id) {
-		return repo.findById((long) id);
+		return repo.findById(id);
 	}
 	
 	@Override
@@ -41,7 +42,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 		hash = PasswordHash.builder()
 				.setPassword(user.getPassword())
 				.build();
-		user.setCreationDate(new Date(System.currentTimeMillis()));
+		user.setCreationDate(Instant.now());
 		user.setPassword(hash.getDbPassword());
 		user.setEmail(user.getEmail().toLowerCase());
 		return repo.save(user);
