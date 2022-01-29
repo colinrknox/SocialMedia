@@ -41,6 +41,20 @@ public class UserPostServiceImpl implements UserPostService {
 		this.likeRepo = likeRepo;
 	}
 
+	//Added by LuisR
+	@Override
+	public List<UserPost> findCertainUserPostDesc(int id) 
+	{
+		return postRepo.findAllByid(id);
+	}
+	
+	//added by Luis R
+	@Override
+	public List<UserPost> findAllPostsOfUser(int author)
+	{
+		return postRepo.findAllByauthor(author);
+	}
+
 	@Override
 	public String createPost(int author, String text, String image, Timestamp creationDate) {
 		int id = 0;
@@ -54,5 +68,6 @@ public class UserPostServiceImpl implements UserPostService {
 		PostLike like = new PostLike(profileId, postId);
 		likeRepo.save(like);
 		return "Like Created";
+
 	}
 }

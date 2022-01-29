@@ -51,4 +51,18 @@ public class UserPostController {
 	public void setServ(UserPostService serv) {
 		this.serv = serv;
 	}
+	
+	//Added by LuisR
+	@GetMapping("/api/userPosts")
+	public List<UserPost> getUserPosts(int id)
+	{
+		return serv.findCertainUserPostDesc(id);
+	}
+	
+	//added by Luis R
+	@GetMapping("/api/allUserPosts")
+	public List<UserPost> getAllPostsByAuthor(int author)
+	{
+		return serv.findAllPostsOfUser(author);
+	}
 }

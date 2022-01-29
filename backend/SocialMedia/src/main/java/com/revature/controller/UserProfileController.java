@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.model.UserProfile;
 import com.revature.service.UserProfileService;
+import com.revature.service.UserProfileServiceImpl;
 
 @RestController
 public class UserProfileController {
@@ -75,5 +76,16 @@ public class UserProfileController {
 	public void saveAbout(HttpServletRequest req, String about) {
 		UserProfile user = (UserProfile) req.getSession().getAttribute("account");
 		serv.saveAbout(user, about);
+	}
+	
+	
+	/* added by Luis R
+	 * searches for the user in the database by their id(primary key)
+	 */
+	@PostMapping(value = "/getUser")
+	public Optional<UserProfile> getUserProfileById(int id)
+	{
+		serv = new UserProfileServiceImpl();
+		return serv.findById(id);
 	}
 }

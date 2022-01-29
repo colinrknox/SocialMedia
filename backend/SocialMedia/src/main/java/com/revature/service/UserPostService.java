@@ -18,4 +18,11 @@ public interface UserPostService {
 
 	List<UserPost> findAllPostsDesc();
 
+	
+	//Added by LuisR
+	List<UserPost> findCertainUserPostDesc(int id);
+	
+	//added by LuisR
+	List<UserPost> findAllPostsOfUser(int author);
+
 }
