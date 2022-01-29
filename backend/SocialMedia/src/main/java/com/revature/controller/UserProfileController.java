@@ -5,11 +5,12 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.model.UserProfile;
 import com.revature.service.UserProfileService;
-import com.revature.service.UserProfileServiceImpl;
 
 @RestController
 public class UserProfileController {
@@ -52,8 +52,7 @@ public class UserProfileController {
 	 */
 	@PostMapping(value = "/register")
 	public ResponseEntity<UserProfile> register(@RequestBody UserProfile user) {
-		serv.save(user);
-		return ResponseEntity.status(HttpStatus.CREATED).build();
+		return new ResponseEntity<UserProfile>(serv.save(user), HttpStatus.CREATED);
 	}
 
 	/***
@@ -61,31 +60,31 @@ public class UserProfileController {
 	 * 
 	 * @param session
 	 */
-	@PostMapping(value = "/logout")
+	@GetMapping(value = "/logout")
 	@ResponseStatus(HttpStatus.OK)
 	public void logout(HttpSession session) {
 		session.invalidate();
 	}
 
+	@PostMapping(value = "/save/about")
+	public ResponseEntity<Object> saveAbout(HttpServletRequest req, @RequestBody String about) {
+		UserProfile user = (UserProfile) req.getSession().getAttribute("account");
+		serv.saveAbout(user, about);
+		return new ResponseEntity<Object>(null, HttpStatus.OK);
+	}
+	
+	
+	/* 
+	 * searches for the user in the database by their id(primary key)
+	 * @author Luis R
+	 */
+	@GetMapping(value = "/user/{userId}")
+	public ResponseEntity<Optional<UserProfile>> getUserProfileById(@PathVariable int userId) {
+		return new ResponseEntity<Optional<UserProfile>>(serv.findById(userId), HttpStatus.OK);
+	}
+	
 	@Autowired
 	public void setServ(UserProfileService serv) {
 		this.serv = serv;
-	}
-
-	@PostMapping(value = "/saveabout")
-	public void saveAbout(HttpServletRequest req, String about) {
-		UserProfile user = (UserProfile) req.getSession().getAttribute("account");
-		serv.saveAbout(user, about);
-	}
-	
-	
-	/* added by Luis R
-	 * searches for the user in the database by their id(primary key)
-	 */
-	@PostMapping(value = "/getUser")
-	public Optional<UserProfile> getUserProfileById(int id)
-	{
-		serv = new UserProfileServiceImpl();
-		return serv.findById(id);
 	}
 }

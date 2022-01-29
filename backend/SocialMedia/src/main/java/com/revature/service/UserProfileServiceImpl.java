@@ -18,7 +18,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 	
 	@Override
 	public Optional<UserProfile> findById(int id) {
-		return repo.findById((long) id);
+		return repo.findById(id);
 	}
 	
 	@Override

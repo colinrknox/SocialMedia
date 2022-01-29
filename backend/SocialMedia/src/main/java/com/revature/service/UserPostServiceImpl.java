@@ -39,13 +39,13 @@ public class UserPostServiceImpl implements UserPostService {
 	//Added by LuisR
 	@Override
 	public List<UserPost> findCertainUserPostDesc(int id) {
-		return postRepo.findAllByid(id);
+		return postRepo.findAllById(id);
 	}
 	
 	//added by Luis R
 	@Override
 	public List<UserPost> findAllPostsOfUser(int author) {
-		return postRepo.findAllByauthor(author);
+		return postRepo.findAllByAuthor(author);
 	}
 
 	@Override
