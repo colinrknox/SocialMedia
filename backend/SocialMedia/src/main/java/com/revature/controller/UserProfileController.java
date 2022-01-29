@@ -67,7 +67,7 @@ public class UserProfileController {
 		return new ResponseEntity<Object>(null, HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/save/about")
+	@PostMapping(value = "/about/save")
 	public ResponseEntity<Object> saveAbout(HttpServletRequest req, @RequestBody String about) {
 		UserProfile user = (UserProfile) req.getSession().getAttribute("account");
 		serv.saveAbout(user, about);
