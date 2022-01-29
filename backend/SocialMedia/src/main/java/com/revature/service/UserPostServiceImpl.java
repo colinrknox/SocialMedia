@@ -35,23 +35,16 @@ public class UserPostServiceImpl implements UserPostService {
 	public List<UserPost> findAllPostsDesc() {
 		return postRepo.findAllByOrderByCreationDateDesc();
 	}
-	
-	@Autowired
-	public void setLikeRepo(PostLikeDao likeRepo) {
-		this.likeRepo = likeRepo;
-	}
 
 	//Added by LuisR
 	@Override
-	public List<UserPost> findCertainUserPostDesc(int id) 
-	{
+	public List<UserPost> findCertainUserPostDesc(int id) {
 		return postRepo.findAllByid(id);
 	}
 	
 	//added by Luis R
 	@Override
-	public List<UserPost> findAllPostsOfUser(int author)
-	{
+	public List<UserPost> findAllPostsOfUser(int author) {
 		return postRepo.findAllByauthor(author);
 	}
 
@@ -69,5 +62,10 @@ public class UserPostServiceImpl implements UserPostService {
 		likeRepo.save(like);
 		return "Like Created";
 
+	}
+	
+	@Autowired
+	public void setLikeRepo(PostLikeDao likeRepo) {
+		this.likeRepo = likeRepo;
 	}
 }

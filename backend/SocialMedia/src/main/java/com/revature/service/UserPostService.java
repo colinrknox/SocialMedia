@@ -14,11 +14,11 @@ public interface UserPostService {
 	
 
 	String createPost(int author, String text, String image, Timestamp creationDate);
+	
 	String createLike(int profileId, int postId);
 
 	List<UserPost> findAllPostsDesc();
 
-	
 	//Added by LuisR
 	List<UserPost> findCertainUserPostDesc(int id);
 	
