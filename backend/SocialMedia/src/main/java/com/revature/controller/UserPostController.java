@@ -1,6 +1,5 @@
 package com.revature.controller;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -32,33 +31,30 @@ public class UserPostController {
 	
 	@PostMapping("/api/createpost")
 	@ResponseStatus(value=HttpStatus.CREATED)
-	public String createPost(HttpSession session, @RequestBody UserPost post ) {
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+	public ResponseEntity<UserPost> createPost(HttpSession session, @RequestBody UserPost post ) {
 		UserProfile user  = (UserProfile) session.getAttribute("account");
-		String text = post.getText();
-		String image = post.getImage();
-		return serv.createPost(user.getId(), text, image, timestamp);
+		return new ResponseEntity<UserPost>(serv.createPost(user, post), HttpStatus.CREATED);
 	}
 	
-	@PostMapping("/api/createlike")
+	@PostMapping("/api/like/{postId}")
 	@ResponseStatus(value=HttpStatus.CREATED)
-	public String createLike(HttpSession session, @RequestBody PostLike like ) {
+	public ResponseEntity<PostLike> createLike(HttpSession session, @PathVariable Integer postId) {
 		UserProfile user  = (UserProfile) session.getAttribute("account");
-		return serv.createLike(user.getId(), like.getPostId());
+		return new ResponseEntity<PostLike>(serv.createLike(user.getId(), postId), HttpStatus.OK);
 	}
 	
 	//Added by LuisR
-	@GetMapping("/api/userPosts")
-	public List<UserPost> getUserPosts(int id) {
-		return serv.findCertainUserPostDesc(id);
+	@GetMapping("/api/posts/{author}")
+	public ResponseEntity<List<UserPost>> getUserPosts(Integer author) {
+		return new ResponseEntity<List<UserPost>>(serv.findUserPostsDesc(author), HttpStatus.OK);
 	}
 	
-	//added by Luis R
-	@GetMapping("/api/allUserPosts/{author}")
-	public List<UserPost> getAllPostsByAuthor(@PathVariable int author) {
-		return serv.findAllPostsOfUser(author);
+	@GetMapping("/api/myposts")
+	public ResponseEntity<List<UserPost>> getMyPosts(HttpSession session) {
+		UserProfile user  = (UserProfile) session.getAttribute("account");
+		return new ResponseEntity<List<UserPost>>(serv.findUserPostsDesc(user.getId()), HttpStatus.OK);
 	}
-	
+
 	@Autowired
 	public void setServ(UserPostService serv) {
 		this.serv = serv;

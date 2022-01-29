@@ -21,7 +21,8 @@ import lombok.NoArgsConstructor;
 public class PostLike implements Serializable {
 	
 	@Id
-	int profileId;
+	Integer profileId;
+	
 	@Id
-	int postId;
+	Integer postId;
 }

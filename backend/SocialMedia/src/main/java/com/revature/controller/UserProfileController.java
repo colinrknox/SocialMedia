@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.model.UserProfile;
@@ -61,9 +60,11 @@ public class UserProfileController {
 	 * @param session
 	 */
 	@GetMapping(value = "/logout")
-	@ResponseStatus(HttpStatus.OK)
-	public void logout(HttpSession session) {
-		session.invalidate();
+	public ResponseEntity<Object> logout(HttpServletRequest req) {
+		if (req.getSession(false) != null) {
+			req.getSession(false).invalidate();
+		}
+		return new ResponseEntity<Object>(null, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/save/about")
@@ -81,6 +82,12 @@ public class UserProfileController {
 	@GetMapping(value = "/user/{userId}")
 	public ResponseEntity<Optional<UserProfile>> getUserProfileById(@PathVariable int userId) {
 		return new ResponseEntity<Optional<UserProfile>>(serv.findById(userId), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/myaccount")
+	public ResponseEntity<UserProfile> getMyProfile(HttpSession session) {
+		UserProfile user = (UserProfile) session.getAttribute("account");
+		return new ResponseEntity<UserProfile>(user, HttpStatus.OK);
 	}
 	
 	@Autowired

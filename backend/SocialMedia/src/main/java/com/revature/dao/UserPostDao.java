@@ -20,8 +20,5 @@ public interface UserPostDao extends JpaRepository<UserPost, Integer> {
 	public List<UserPost> findAllByOrderByCreationDateDesc();
 	
 	//Added by LuisR
-	public List<UserPost> findAllById(int id);
-	
-	//added by Luis R
-	public List<UserPost> findAllByAuthor(int author);
+	public List<UserPost> findByAuthorOrderByCreationDateDesc(Integer id);
 }

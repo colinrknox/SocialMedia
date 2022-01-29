@@ -1,13 +1,12 @@
 package com.revature.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.Instant;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -24,9 +23,9 @@ public class PostComment implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int id;
-	int author;
+	Integer id;
+	Integer author;
 	String text;
-	int postId;
-	Date creationDate;
+	Integer postId;
+	Instant creationDate;
 }
