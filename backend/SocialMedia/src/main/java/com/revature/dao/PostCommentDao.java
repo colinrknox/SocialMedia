@@ -12,6 +12,8 @@ import com.revature.model.PostComment;
  * @author Colin Knox
  *
  */
+
+//This is an interface which will be implemented later on
 @Repository
 public interface PostCommentDao extends JpaRepository<PostComment, Integer> {
 
