@@ -1,6 +1,7 @@
 DROP TABLE post_comments;
 DROP TABLE post_likes;
 DROP TABLE user_posts;
+DROP TABLE reset_tokens;
 DROP TABLE user_profiles;
 
 CREATE TABLE user_profiles (
@@ -47,23 +48,16 @@ CREATE TABLE post_likes (
 	FOREIGN KEY (post_id) REFERENCES user_posts (id) ON DELETE CASCADE
 );
 
-
-SELECT user_posts.id, post_likes.id, post_likes.profile_id
-FROM user_posts 
-RIGHT JOIN post_likes ON  user_posts.id =  post_likes.post_id;
-
-SELECT user_posts.author, post_comments.id, post_comments.author, post_comments."text"
-FROM user_posts
-RIGHT JOIN post_comments ON  user_posts.id = post_comments.post_id;
+CREATE TABLE reset_tokens (
+	uuid VARCHAR(36) PRIMARY KEY,
+	profile_id INTEGER NOT NULL UNIQUE,
+	FOREIGN KEY (profile_id) REFERENCES user_profiles (id) ON DELETE CASCADE
+);
 
 
-SELECT * FROM user_profiles;
-SELECT * FROM user_posts;
-SELECT * FROM post_comments;
-SELECT * FROM post_likes;
-
-
---optional
---direct
---global_chat
+--SELECT * FROM user_profiles;
+--SELECT * FROM user_posts;
+--SELECT * FROM post_comments;
+--SELECT * FROM post_likes;
+--SELECT * FROM reset_tokens;
 

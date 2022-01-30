@@ -3,26 +3,26 @@ package com.revature.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-
 
 @Entity
-@Table(name = "post_likes")
-@IdClass(PostLikeId.class)
+@Table(name = "reset_tokens")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostLike implements Serializable {
+public class ResetToken implements Serializable{
+	@Id
+	String uuid;
 	
-	@Id
-	Integer profileId;
-	@Id
-	Integer postId;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "profileId")
+	UserProfile user;
 }
