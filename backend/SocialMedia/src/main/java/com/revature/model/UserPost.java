@@ -22,8 +22,8 @@ import lombok.NonNull;
 @Entity
 @Table(name = "user_posts")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserPost implements Serializable {
 	
 	@Id

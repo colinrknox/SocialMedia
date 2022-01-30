@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.model.UserProfile;
@@ -70,7 +71,7 @@ public class UserProfileController {
 	@PostMapping(value = "/about/save")
 	public ResponseEntity<Object> saveAbout(HttpServletRequest req, @RequestBody String about) {
 		UserProfile user = (UserProfile) req.getSession().getAttribute("account");
-		serv.saveAbout(user, about);
+		req.getSession().setAttribute("account", serv.saveAbout(user, about));
 		return new ResponseEntity<Object>(null, HttpStatus.OK);
 	}
 	
@@ -95,6 +96,13 @@ public class UserProfileController {
 		UserProfile user = (UserProfile) req.getSession().getAttribute("account");
 		req.getSession().setAttribute("account", serv.saveProfileImage(user, img, req.getContentType()));
 		return new ResponseEntity<Object>(req.getSession().getAttribute("account"), HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/resetpassword")
+	public ResponseEntity<Object> resetPassword(@RequestBody String email) {
+		System.out.println(email);
+		serv.generateResetPassword(email);
+		return new ResponseEntity<Object>(null, HttpStatus.OK);
 	}
 	
 	@Autowired
