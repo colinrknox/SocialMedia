@@ -1,7 +1,7 @@
 package com.revature.service;
 
 import java.time.Instant;
-import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,12 @@ import org.springframework.stereotype.Service;
 import com.revature.dao.UserProfileDao;
 import com.revature.model.UserProfile;
 import com.revature.utils.PasswordHash;
+
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.Bucket;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 @Service
 public class UserProfileServiceImpl implements UserProfileService {
@@ -48,6 +54,33 @@ public class UserProfileServiceImpl implements UserProfileService {
 		return repo.save(user);
 	}
 	
+	@Override
+	public void saveAbout(UserProfile user, String about) {
+		user.setAbout(about);
+	}
+
+	@Override
+	public UserProfile saveProfileImage(UserProfile user, byte[] img, String contentType) throws RuntimeException {
+		S3Client client = S3Client.builder()
+				.region(Region.US_EAST_2)
+				.build();
+		
+		List<Bucket> buckets = client.listBuckets().buckets();
+		if (buckets.isEmpty()) {
+			throw new RuntimeException("No AWS buckets found");
+		}
+		String key = "profile/" + String.valueOf(user.getId());
+		PutObjectRequest req = PutObjectRequest.builder()
+				.bucket(buckets.get(0).name())
+				.key(key)
+				.contentType(contentType)
+				.build();
+		
+		client.putObject(req, RequestBody.fromBytes(img));
+		user.setPhoto("https://" + buckets.get(0).name() + ".s3." + Region.US_EAST_2.toString() + ".amazonaws.com/" + key);
+		return repo.save(user);
+	}
+	
 	public void setHash(PasswordHash hash) {
 		this.hash = hash;
 	}
@@ -55,11 +88,5 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Autowired
 	public void setRepo(UserProfileDao repo) {
 		this.repo = repo;
-	}
-	
-	@Override
-	public void saveAbout(UserProfile user, String about) {
-		user.setAbout(about);
-		repo.save(user);
 	}
 }

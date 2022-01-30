@@ -14,5 +14,5 @@ public interface UserProfileService {
 	
 	void saveAbout(UserProfile user, String about);
 	
-	
+	UserProfile saveProfileImage(UserProfile user, byte[] img, String contentType) throws RuntimeException;
 }
