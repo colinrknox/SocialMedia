@@ -17,8 +17,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "user_profiles")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserProfile implements Serializable {
 	
 	@Id

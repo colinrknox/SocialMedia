@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.revature.dao.PostLikeDao;
 import com.revature.dao.UserPostDao;
 import com.revature.model.PostLike;
+import com.revature.model.ResetToken;
 import com.revature.model.UserPost;
 import com.revature.model.UserProfile;
 

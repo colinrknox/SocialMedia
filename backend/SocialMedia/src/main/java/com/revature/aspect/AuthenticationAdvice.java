@@ -32,8 +32,12 @@ public class AuthenticationAdvice {
 	@Pointcut("!execution(* register(..))")
 	public void notRegisterAdvice() {
 	}
+	
+	@Pointcut("!execution(* generateResetPassword(..))")
+	public void notGenReset() {
+	}
 
-	@Around("getMappingAdvice() || postMappingAdvice() && notRegisterAdvice() && notLoginAdvice()")
+	@Around("getMappingAdvice() || postMappingAdvice() && notRegisterAdvice() && notLoginAdvice() && notGenReset()")
 	public ResponseEntity<Object> ensureLoggedIn(ProceedingJoinPoint jp) throws Throwable {
 		if (session.getAttribute("account") == null) {
 			return new ResponseEntity<Object>(null, HttpStatus.UNAUTHORIZED);
