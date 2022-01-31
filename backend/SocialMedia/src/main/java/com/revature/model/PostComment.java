@@ -1,7 +1,7 @@
 package com.revature.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.Instant;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,15 +17,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "post_comments")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class PostComment implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int id;
-	int author;
+	Integer id;
+	Integer author;
 	String text;
-	int postId;
-	Date creationDate;
+	Integer postId;
+	Instant creationDate;
 }

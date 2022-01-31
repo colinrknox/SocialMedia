@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revature's Social Network</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="./assets/js/likePost.js" defer></script>
+</head>
+<body>
+    <nav class="navbar-mobile__menu-opener">
+        <input class="form-control navbar-mobile__input"/>
+        <img class="p-16" src="./assets/images/icons/menu-hamburger.svg" alt="open mobile menu button (click to open mobile menu)">
+    </nav>
+    <nav id="mobile-menu" class="navbar-mobile">
+        <div class="navbar-mobile__top">
+            <div class="cross pointer">
+                <p class="cross__line cross__top"></p>
+                <p class="cross__line cross__bottom"></p>
+            </div>
+        </div>
+        <ul id="mobile-menu-list" class="navbar-mobile__navbar-list">
+            <a href="index.html">
+                <li class="navbar-list__navbar-item pt-8">profile</li>
+            </a>
+            <a href="feed.html">
+                <li class="navbar-list__navbar-item pt-8">feed</li>
+            </a>
+            <a href="#logout">
+                <li class="navbar-list__navbar-item pt-8">logout</li>
+            </a>
+        </ul>
+    </nav>
+    <nav class="navbar-desktop">
+        <ul class="navbar-desktop__navbar-list">
+            <div class="navbar-desktop__navbar-list-group">
+                <li class="navbar-list__navbar-item pointer">
+                    <a class="navbar-list__navbar-item-link" href="index.html">profile</a>
+                </li>
+                <li class="navbar-list__navbar-item pointer">
+                    <a class="navbar-list__navbar-item-link" href="feed.html">feed</a>
+                </li>
+                <li class="navbar-list__navbar-item pointer">
+                    <input class="navbar-list__search-input form-control" placeholder="search users"/>
+                </li>
+            </div>
+            <li class="navbar-list__navbar-item pointer">
+                <!-- <a class="navbar-list__navbar-item-link" href="#login">login</a> -->
+                <a class="navbar-list__navbar-item-link" href="#logout">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sign-out-alt" class="navbar-list__navbar-item-link-icon svg-inline--fa fa-sign-out-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path class="icon" d="M497 273L329 441c-15 15-41 4.5-41-17v-96H152c-13.3 0-24-10.7-24-24v-96c0-13.3 10.7-24 24-24h136V88c0-21.4 25.9-32 41-17l168 168c9.3 9.4 9.3 24.6 0 34zM192 436v-40c0-6.6-5.4-12-12-12H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h84c6.6 0 12-5.4 12-12V76c0-6.6-5.4-12-12-12H96c-53 0-96 43-96 96v192c0 53 43 96 96 96h84c6.6 0 12-5.4 12-12z"></path></svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <main class="main">
+        <div class="main__left">
+            <section class="profile hide">
+                <!-- <div class="profile__account-info-container"> -->
+                    <!-- <div class="profile__round-avatar-container-wrapper">
+                        <div class="profile__round-avatar-container">
+                            <img class="profile__round-avatar" src="./assets/images/avatar.jpeg" alt="avatar"/>
+                            <div class="change-avatar__container pointer">
+                                <img class="change-avatar__image" src="./assets/images/icons/camera.svg" alt="camera"/>
+                            </div>
+                        </div>
+                        <h1>User User</h1>
+                    </div> -->
+                    <!-- <div class="profile__avatar-container">
+                    </div> -->
+                    <img class="profile__avatar" src="./assets/images/avatar.jpeg" alt="avatar"/>
+                    <h1 class="profile__name">Ariella Deon Kemp Williamson</h1>
+                    <h2 class="profile__friends-count">340 friends</h2>
+                <!-- </div> -->
+            </section>
+            <section class="about hide">
+                Blonde, oily hair almost fully covers a chiseled, time-worn face. Piercing amber eyes, set gracefully within their sockets, watch discreetly over the country they've looked after for so long.
+                    Scars reaching from the right side of the forehead , running towards the right side of her lips and ending above her right eye and leaves an intriguing memory of an unusual alliance.</br></br>The is the face of Ariella Deon Kemp Williamson, a true champion among dwarves. She stands common among others, despite her light frame.</p>
+            </section>
+        </div>
+        <div class="main__right">
+            <section class="new-post hide">
+                <div class="new-post__left">
+                    <div class="round-avatar__container">
+                        <img class="round-avatar__avatar" src="./assets/images/avatar.jpeg" alt="avatar"/>
+                        <!-- <div class="change-avatar__container pointer">
+                            <img class="change-avatar__image" src="./assets/images/icons/camera.svg" alt="camera"/>
+                        </div> -->
+                    </div>
+                    <!-- <img class="new-post__avatar" src="./assets/images/avatar.jpeg" alt="avatar"/> -->
+                </div>
+                <div class="new-post__right">
+                    <h1 class="font-weight-bold">New post</h1>
+                    <!-- <input class="form-control mt-3" placeholder="youtube link"/> -->
+                    <textarea class="form-control mt-3" placeholder="Enter your post here"></textarea>
+                    <!-- <label class="form-label" for="customFile">Default file input example</label> -->
+                    <input class="form-control mt-3" type="file" />
+                    <button class="btn btn-primary mt-3">Submit</button>
+                </div>
+            </section>
+            <section class="posts">
+                <h1 class="font-weight-bold">Posts</h1>
+                <div class="post">
+                    <div class="post__header">
+                        <a class="post__avatar-link round-avatar__container" href="#user">
+                            <img class="round-avatar__avatar" src="./assets/images/avatar.jpeg" alt="avatar"/>
+                        </a>
+                        <div class="post__header-right">
+                            <a href="#user" class="post__author font-weight-bold">Ariella Deon Kemp Williamson</a>
+                            <!-- <p class="post__date mt-2">Jan 10 2022</p> -->
+                        </div>
+                    </div>
+                    <div class="post__content">
+                        <p class="mt-2">Up unpacked friendly ecstatic so possible humoured do. Ample end might folly quiet one set spoke her. We no am former valley assure. Four need spot ye said we find mile. Are commanded him convinced dashwoods did estimable forfeited. Shy celebrated met sentiments she reasonably but. Proposal its disposed eat advanced marriage sociable. Drawings led greatest add subjects endeavor gay remember. Principles one yet assistance you met impossible.</p>
+                        <p class="mt-2">Improved own provided blessing may peculiar domestic. Sight house has sex never. No visited raising gravity outward subject my cottage mr be. Hold do at tore in park feet near my case. Invitation at understood occasional sentiments insipidity inhabiting in. Off melancholy alteration principles old. Is do speedily kindness properly oh. Respect article painted cottage he is offices parlors.</p>
+                        <img class="post__image mt-2" src="./assets/images/nature.jpeg" alt="nature"/>
+                    </div>
+                    <div class="post__actions">
+                        <!-- <img class="post__like" src="./assets/images/icons/heart-solid.svg"/> -->
+                        <a onclick="like()">
+                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart" id="post_like_icon" class="post__like pointer svg-inline--fa fa-heart fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer class="footer">
+        <ul class="footer__list">
+            <li class="footer__list-item">
+                <a class="footer__link" href="index.html">profile</a>
+            </li>
+            <li class="footer__list-item">
+                <a class="footer__link" href="feed.html">feed</a>
+            </li>
+            <!-- <li class="footer__list-item">
+                <a class="footer__link" href="#login">login</a>
+            </li> -->
+            <li class="footer__list-item">
+                <a class="footer__link" href="#logout">logout</a>
+            </li>
+        </ul>
+    </footer>
+</body>
+</html>
