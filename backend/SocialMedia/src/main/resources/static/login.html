@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Login page</title>
+	<!-- <link rel="stylesheet" type="text/css" href="/ersapp/resources/css/mystyles.css" /> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
+</head>
+
+<body>
+	<div class="login-page__login-container">
+		<div class="login-container__wrapper">
+			<div class="login-container">
+				<h4 class="header">Login</h4>
+				<form
+					class="form"
+					method="POST"
+					action="/ersapp/forwarding/login">
+					<!-- <p>Please log in</p> -->
+					<label class="label" for="username">Enter your username</label>
+					<input class="input" id="username" type="text" placeholder="username" name="username">
+					<label class="label" for="password">Enter your password</label>
+					<input class="input" id="password" type="text" placeholder="password" name="password">
+					<input class="btn btn-primary" type="submit" value="Login" />
+				</form>
+				<!-- <form method="GET" action="/ersapp/json/alltickets">
+					<p>all tickets</p>
+					<input type="submit" value="show all tickets" />
+				</form>
+				</div> -->
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
