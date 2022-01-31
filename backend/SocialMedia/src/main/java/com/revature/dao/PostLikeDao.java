@@ -14,7 +14,7 @@ import com.revature.model.PostLike;
  *
  */
 @Repository
-public interface PostLikeDao extends JpaRepository<PostLike, Long> {
+public interface PostLikeDao extends JpaRepository<PostLike, Integer> {
 	
 	/***
 	 * Get the amount of likes for a given postId

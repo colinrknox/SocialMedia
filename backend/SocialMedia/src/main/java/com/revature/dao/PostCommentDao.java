@@ -13,6 +13,6 @@ import com.revature.model.PostComment;
  *
  */
 @Repository
-public interface PostCommentDao extends JpaRepository<PostComment, Long> {
+public interface PostCommentDao extends JpaRepository<PostComment, Integer> {
 
 }
