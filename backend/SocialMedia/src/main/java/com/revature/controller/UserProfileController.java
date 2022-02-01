@@ -99,7 +99,7 @@ public class UserProfileController {
 		return new ResponseEntity<Object>(req.getSession().getAttribute("account"), HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "/resetpassword")
+	@PostMapping(value = "/password/reset")
 	public ResponseEntity<Object> resetPassword(@RequestBody String email) {
 		System.out.println(email);
 		serv.generateResetPassword(email);
