@@ -13,12 +13,6 @@ pipeline {
                 echo "Building ${env.JOB_NAME}..."
             }
         }
-        stage('Reclone Project') {
-            steps {
-                sh 'git clone https://github.com/rasc0l/SocialMedia.git'
-                echo "Cloning Project..."
-            }
-        }
         stage('Build') {
             steps {
                 sh 'mvn clean package'
