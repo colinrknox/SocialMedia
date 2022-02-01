@@ -21,7 +21,7 @@ pipeline {
         stage('Initialization') {
             steps{
                 sh '''
-                    echo "AWS_DB_ENDPOINT = ${AWS_DB_ENDPOINT"
+                    echo "AWS_DB_ENDPOINT = ${AWS_DB_ENDPOINT}"
                     echo "AWS_USERNAME = ${AWS_USERNAME}"
                     echo "AWS_PASSWORD = ${AWS_PASSWORD}"
                     echo "AWS_BUCKET_NAME = ${AWS_BUCKET_NAME}"
