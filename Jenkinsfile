@@ -4,9 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'cd backend/'
-                sh "ls"
-                sh 'mvn clean package'
+                sh 'mvn -f backend/SocialMedia/pom.xml clean package'
             }
         }
     }
