@@ -69,7 +69,7 @@ class UserProfileControllerTest {
 		
 		ResponseEntity<UserProfile> resp = controller.register(mockUser);
 		
-		assertEquals(resp.getStatusCode(), HttpStatus.CREATED);
+		assertEquals(resp.getStatusCode(), HttpStatus.OK);
 	}
 
 }
