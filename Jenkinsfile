@@ -13,6 +13,11 @@ pipeline {
                 echo "Building ${env.JOB_NAME}..."
             }
         }
+        stage('Cloning git repo') {
+            steps {
+                sh "git clone https://github.com/rasc0l/SocialMedia.git"
+            }
+        }
         stage('Build') {
             steps {
                 sh 'cd SocialMedia/'
