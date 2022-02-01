@@ -1,13 +1,39 @@
 pipeline {
     agent any
 
-    // Basic maven jar creation
+    options {
+        skipDefaultCheckout(true)
+    }
+
     stages {
+        stage('Clean workspace') {
+            steps {
+                cleanWs()
+                checkout scm
+                echo "Building ${env.JOB_NAME}..."
+            }
+        }
+        stage('Reclone Project') {
+            steps {
+                sh 'git clone https://github.com/rasc0l/SocialMedia.git'
+                echo "Cloning Project..."
+            }
+        }
         stage('Build') {
             steps {
-                cd backend/SocialMedia/
-                mvn clean package
+                sh 'mvn clean package'
             }
+        }
+    }
+    // Clean workspace with options
+    post {
+        always {
+            cleanWs(cleanWhenNotBuilt: false,
+                    deleteDirs: true,
+                    disableDeferredWipeout: true,
+                    notFailBuild: true,
+                    patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
+                               [pattern: '.propsfile', type: 'EXCLUDE']])
         }
     }
 }
