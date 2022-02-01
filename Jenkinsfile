@@ -5,8 +5,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                cd backend/SocialMedia/
-                mvn clean package
+                sh 'cd backend/SocialMedia/'
+                sh 'mvn clean package'
             }
         }
     }
