@@ -4,6 +4,11 @@ pipeline {
     options {
         skipDefaultCheckout(true)
     }
+    
+    tools {
+        maven 'Maven 3.5.4'
+        jdk 'jdk11'
+    }
 
     stages {
         stage('Clean workspace') {
@@ -15,7 +20,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn -f backend/SocialMedia/pom.xml clean package'
+                sh 'mvn -X -f backend/SocialMedia/pom.xml clean package'
             }
         }
     }
