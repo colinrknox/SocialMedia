@@ -42,13 +42,19 @@ public class UserProfileServiceImpl implements UserProfileService {
 			return null;
 		}
 		String[] tokens = u.getPassword().split(":");
-		hash = PasswordHash.builder().setSalt(tokens[1]).setPassword(password).setIterations(tokens[0]).build();
+		hash = PasswordHash.builder()
+				.setSalt(tokens[1])
+				.setPassword(password)
+				.setIterations(tokens[0])
+				.build();
 		return hash.validate(tokens[2]) ? u : null;
 	}
 
 	@Override
 	public UserProfile save(UserProfile user) {
-		hash = PasswordHash.builder().setPassword(user.getPassword()).build();
+		hash = PasswordHash.builder()
+				.setPassword(user.getPassword())
+				.build();
 		user.setCreationDate(Instant.now());
 		user.setPassword(hash.getDbPassword());
 		user.setEmail(user.getEmail().toLowerCase());
@@ -93,6 +99,24 @@ public class UserProfileServiceImpl implements UserProfileService {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public UserProfile changeUserPassword(String uuid, String newPassword) {
+		// Get reset token
+		ResetToken token = tokenRepo.getById(uuid);
+		// Get user profile
+		UserProfile user = token.getUser();
+		String[] tokens = user.getPassword().split(":");
+		// Hash the password
+		hash = PasswordHash.builder()
+				.setSalt(tokens[0])
+				.setPassword(newPassword)
+				.setIterations(tokens[2])
+				.build();
+		user.setPassword(hash.getDbPassword());
+		// Set user profile's password to the new hash
+		return repo.save(user);
 	}
 
 	public void setHash(PasswordHash hash) {

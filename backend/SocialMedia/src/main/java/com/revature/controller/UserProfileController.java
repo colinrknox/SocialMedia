@@ -106,6 +106,11 @@ public class UserProfileController {
 		return new ResponseEntity<Object>(null, HttpStatus.OK);
 	}
 	
+	@PostMapping(value = "/password/change/{uuid}")
+	public ResponseEntity<UserProfile> changePassword(@PathVariable String uuid, @RequestBody String newPassword) {
+		return new ResponseEntity<UserProfile>(serv.changeUserPassword(uuid, newPassword), HttpStatus.OK);
+	}
+	
 	@Autowired
 	public void setServ(UserProfileService serv) {
 		this.serv = serv;
