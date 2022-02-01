@@ -17,8 +17,6 @@
 	<description>Social media website with java server and angular front end</description>
 	<properties>
 		<java.version>11</java.version>
-		<maven.target.compiler>11</maven.target.compiler>
-		<maven.target.source>11</maven.target.source>
 	</properties>
 	<dependencies>
 		<dependency>
