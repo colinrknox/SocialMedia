@@ -1,26 +1,17 @@
 pipeline {
     agent any
 
-    options {
-        skipDefaultCheckout(true)
-    }
-
     stages {
-        stage('Clean workspace') {
-            steps {
-                cleanWs()
-                checkout scm
-                echo "Building ${env.JOB_NAME}..."
-            }
-        }
         stage('Cloning git repo') {
             steps {
                 sh "git clone https://github.com/rasc0l/SocialMedia.git"
+                sh "ls -a"
             }
         }
         stage('Build') {
             steps {
                 sh 'cd SocialMedia/backend/SocialMedia/'
+                sh "ls -a"
                 sh 'mvn clean package'
             }
         }
