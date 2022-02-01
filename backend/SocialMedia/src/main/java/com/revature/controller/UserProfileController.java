@@ -53,7 +53,7 @@ public class UserProfileController {
 	 */
 	@PostMapping(value = "/register")
 	public ResponseEntity<UserProfile> register(@RequestBody UserProfile user) {
-		return new ResponseEntity<UserProfile>(serv.save(user), HttpStatus.CREATED);
+		return new ResponseEntity<UserProfile>(serv.save(user), HttpStatus.OK);
 	}
 
 	/***
@@ -72,7 +72,7 @@ public class UserProfileController {
 	@PostMapping(value = "/about/save")
 	public ResponseEntity<Object> saveAbout(HttpServletRequest req, @RequestBody String about) {
 		UserProfile user = (UserProfile) req.getSession().getAttribute("account");
-		serv.saveAbout(user, about);
+		req.getSession().setAttribute("account", serv.saveAbout(user, about));
 		return new ResponseEntity<Object>(null, HttpStatus.OK);
 	}
 	
@@ -90,6 +90,20 @@ public class UserProfileController {
 	public ResponseEntity<UserProfile> getMyProfile(HttpSession session) {
 		UserProfile user = (UserProfile) session.getAttribute("account");
 		return new ResponseEntity<UserProfile>(user, HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/photo/save")
+	public ResponseEntity<Object> saveProfileImage(HttpServletRequest req, @RequestBody byte[] img) throws RuntimeException {
+		UserProfile user = (UserProfile) req.getSession().getAttribute("account");
+		req.getSession().setAttribute("account", serv.saveProfileImage(user, img, req.getContentType()));
+		return new ResponseEntity<Object>(req.getSession().getAttribute("account"), HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/password/reset")
+	public ResponseEntity<Object> resetPassword(@RequestBody String email) {
+		System.out.println(email);
+		serv.generateResetPassword(email);
+		return new ResponseEntity<Object>(null, HttpStatus.OK);
 	}
 	
 	@Autowired

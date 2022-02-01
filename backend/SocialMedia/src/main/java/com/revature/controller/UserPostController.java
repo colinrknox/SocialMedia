@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.model.PostComment;
 import com.revature.model.PostLike;
 import com.revature.model.UserPost;
 import com.revature.model.UserProfile;
@@ -47,7 +48,7 @@ public class UserPostController {
 	
 	//Added by LuisR
 	@GetMapping("/posts/{author}")
-	public ResponseEntity<List<UserPost>> getAuthorPosts(Integer author) {
+	public ResponseEntity<List<UserPost>> getAuthorPosts(@PathVariable Integer author) {
 		return new ResponseEntity<List<UserPost>>(serv.findUserPostsDesc(author), HttpStatus.OK);
 	}
 	
@@ -55,6 +56,12 @@ public class UserPostController {
 	public ResponseEntity<List<UserPost>> getMyPosts(HttpSession session) {
 		UserProfile user  = (UserProfile) session.getAttribute("account");
 		return new ResponseEntity<List<UserPost>>(serv.findUserPostsDesc(user.getId()), HttpStatus.OK);
+	}
+	
+	@PostMapping("/comments/create")
+	public ResponseEntity<PostComment> createUserPostComment(HttpSession session, @RequestBody PostComment comment) {
+		UserProfile user = (UserProfile) session.getAttribute("account");
+		return new ResponseEntity<PostComment>(serv.createComment(user, comment), HttpStatus.OK);
 	}
 
 	@Autowired

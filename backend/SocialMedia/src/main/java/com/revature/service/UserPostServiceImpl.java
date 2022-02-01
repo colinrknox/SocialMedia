@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.dao.PostCommentDao;
 import com.revature.dao.PostLikeDao;
 import com.revature.dao.UserPostDao;
+import com.revature.model.PostComment;
 import com.revature.model.PostLike;
 import com.revature.model.UserPost;
 import com.revature.model.UserProfile;
@@ -20,6 +22,7 @@ public class UserPostServiceImpl implements UserPostService {
 	
 	private PostLikeDao likeRepo;
 	private UserPostDao postRepo;
+	private PostCommentDao commentRepo;
 	
 	@Override
 	public int getPostLikes(Integer postId) {
@@ -50,6 +53,13 @@ public class UserPostServiceImpl implements UserPostService {
 		return likeRepo.save(like);
 	}
 	
+	@Override
+	public PostComment createComment(UserProfile user, PostComment comment) {
+		comment.setAuthor(user.getId());
+		comment.setCreationDate(Instant.now());
+		return commentRepo.save(comment);
+	}
+	
 	@Autowired
 	public void setLikeRepo(PostLikeDao likeRepo) {
 		this.likeRepo = likeRepo;
@@ -59,4 +69,10 @@ public class UserPostServiceImpl implements UserPostService {
 	public void setPostRepo(UserPostDao postRepo) {
 		this.postRepo = postRepo;
 	}
+
+	@Autowired
+	public void setCommentRepo(PostCommentDao commentRepo) {
+		this.commentRepo = commentRepo;
+	}
 }
+
