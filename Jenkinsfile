@@ -4,7 +4,7 @@ pipeline {
     options {
         skipDefaultCheckout(true)
     }
-    // Basic maven jar creation
+
     stages {
         stage('Clean workspace') {
             steps {
@@ -25,6 +25,7 @@ pipeline {
             }
         }
     }
+    // Clean workspace with options
     post {
         always {
             cleanWs(cleanWhenNotBuilt: false,
