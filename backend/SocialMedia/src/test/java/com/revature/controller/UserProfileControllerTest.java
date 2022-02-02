@@ -1,75 +1,89 @@
 package com.revature.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.server.ResponseStatusException;
 
-import com.revature.model.UserProfile;
 import com.revature.service.UserProfileService;
 
+@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class UserProfileControllerTest {
 	
-	UserProfileController controller = new UserProfileController();
+	UserProfileController controller;
+	
+	@Mock
 	static UserProfileService mockService;
-	static HttpServletRequest mockReq;
-	static HttpSession mockSession;
-	Map<String, Object> mockJson;
-	static UserProfile mockUser;
+	@Mock
+	HttpSession mockSession;
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-		mockService = Mockito.mock(UserProfileService.class);
-		mockReq = Mockito.mock(HttpServletRequest.class);
-		mockUser = Mockito.mock(UserProfile.class);
-		mockSession = Mockito.mock(HttpSession.class);
-	}
 
 	@BeforeEach
 	void setUp() throws Exception {
-		mockJson = new HashMap<>();
-		mockJson.put("username", "user");
-		mockJson.put("password", "password");
+		controller = new UserProfileController();
 		controller.setServ(mockService);
 	}
 
 	@Test
-	void testLoginSuccess() {
-		Mockito.when(mockService.authenticate((String)mockJson.get("email"), (String)mockJson.get("password"))).thenReturn(mockUser);
-		Mockito.when(mockReq.getSession()).thenReturn(mockSession);
+	public void testLoginBadRequest() {
+		Map<String, Object> json = new HashMap<String, Object>();
+		json.put("email", null);
+		json.put("password", null);
+		Exception e = assertThrows(ResponseStatusException.class, () -> {
+			controller.login(null, json);
+		});
 		
-		ResponseEntity<UserProfile> resp = controller.login(mockReq, mockJson);
+		String expectedReason = "Missing credentials";
+		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
+		Integer expectedCode = 400;
 		
-		assertEquals(resp.getStatusCode(), HttpStatus.OK);
-		assertEquals(resp.getBody(), mockUser);
+		ResponseStatusException rse = (ResponseStatusException) e;
+		String actualReason = rse.getReason();
+		HttpStatus actualStatus = rse.getStatus();
+		Integer actualCode = rse.getRawStatusCode();
+		
+		assertEquals(expectedReason, actualReason);
+		assertEquals(expectedStatus, actualStatus);
+		assertEquals(expectedCode, actualCode);
 	}
 	
 	@Test
-	void testLoginFail() {
-		Mockito.when(mockService.authenticate((String)mockJson.get("email"), (String)mockJson.get("password"))).thenReturn(null);
+	public void testLoginBadCredentials() {
+		Map<String, Object> json = new HashMap<String, Object>();
+		json.put("email", "colin");
+		json.put("password", "password");
+		Mockito.when(mockService.authenticate((String)json.get("email"), (String)json.get("password"))).thenReturn(null);
 		
-		ResponseEntity<UserProfile> resp = controller.login(mockReq, mockJson);
+		Exception e = assertThrows(ResponseStatusException.class, () -> {
+			controller.login(null, json);
+		});
 		
-		assertEquals(resp.getStatusCode(), HttpStatus.UNAUTHORIZED);
-	}
-	
-	@Test
-	void testRegister() {
-		Mockito.when(mockService.save(mockUser)).thenReturn(mockUser);
+		String expectedReason = "Invalid login credentials";
+		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
+		Integer expectedCode = 400;
 		
-		ResponseEntity<UserProfile> resp = controller.register(mockUser);
+		ResponseStatusException rse = (ResponseStatusException) e;
+		String actualReason = rse.getReason();
+		HttpStatus actualStatus = rse.getStatus();
+		Integer actualCode = rse.getRawStatusCode();
 		
-		assertEquals(resp.getStatusCode(), HttpStatus.OK);
+		assertEquals(expectedReason, actualReason);
+		assertEquals(expectedStatus, actualStatus);
+		assertEquals(expectedCode, actualCode);
 	}
 
 }
