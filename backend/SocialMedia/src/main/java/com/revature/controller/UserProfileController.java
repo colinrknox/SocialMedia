@@ -113,7 +113,9 @@ public class UserProfileController {
 
 	@PostMapping(value = "/password/recovery")
 	public void passwordRecovery(@RequestBody String email) {
-		serv.generateResetPassword(email);
+		if (serv.generateResetPassword(email) == null) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email not found");
+		}
 	}
 
 	@PostMapping(value = "/password/reset/{uuid}")

@@ -33,9 +33,12 @@ public class AuthenticationAdvice {
 	public void notRegisterAdvice() {
 	}
 	
-	@Pointcut("!execution(* generateResetPassword(..))")
-	public void notGenReset() {
+	@Pointcut("!execution(* passwordRecovery(..))")
+	public void notPassRecov() {
 	}
+	
+	@Pointcut("!execution(* changePassword(..))")
+	public void notChangePass() {}
 
 	/**
 	 * Aspect to send an UNAUTHORIZED response to the client if they aren't logged in for all controllers
@@ -44,7 +47,7 @@ public class AuthenticationAdvice {
 	 * @return the method's normal return value if the user is logged in otherwise a new UNAUTHORIZED response
 	 * @throws Throwable Different response codes based on different failures either here or in the controllers
 	 */
-	@Around("getMappingAdvice() || postMappingAdvice() && notRegisterAdvice() && notLoginAdvice() && notGenReset()")
+	@Around("getMappingAdvice() || postMappingAdvice() && notRegisterAdvice() && notLoginAdvice() && notPassRecov() && notChangePass()")
 	public Object ensureLoggedIn(ProceedingJoinPoint jp) throws Throwable {
 		if (session.getAttribute("account") == null) {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
