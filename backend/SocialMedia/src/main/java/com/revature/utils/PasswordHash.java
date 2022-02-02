@@ -13,7 +13,6 @@ import javax.xml.bind.DatatypeConverter;
  * as validating passwords.  Password validation is done by creating a new object with a stored
  * salt and iterations 
  * @author Colin Knox
- *
  */
 public class PasswordHash {
 	
@@ -31,20 +30,39 @@ public class PasswordHash {
 		dbPassword = getPersistentPassword();
 	}
 	
+	/**
+	 * This is the most important method as it converts the plain text password into the
+	 * database storage form of the password
+	 * @return the storage safe hashed password String
+	 */
 	public String getDbPassword() {
 		return dbPassword;
 	}
 	
-	public static Builder builder() {
-		return new Builder();
-	}
-	
+	/**
+	 * Takes in a String representation of the password hash in HexBinary
+	 * @param storedHash
+	 * @return true if the password's match otherwise false
+	 */
 	public boolean validate(String storedHash) {
 		return validate(DatatypeConverter.parseHexBinary(storedHash));
 	}
 	
+	/**
+	 * Compares a password byte hash against the current object's byte hash
+	 * @param storedHashBytes
+	 * @return true if the passwords match otherwise false
+	 */
 	public boolean validate(byte[] storedHashBytes) {
 		return Arrays.equals(storedHashBytes, passBytes);
+	}
+	
+	/**
+	 * Create a new builder for this class
+	 * @return a builder object from the inner class used for building the PasswordHash
+	 */
+	public static Builder builder() {
+		return new Builder();
 	}
 	
 	public static class Builder {
@@ -86,7 +104,7 @@ public class PasswordHash {
 	/***
 	 * Returns a 16 byte salt for password hashing
 	 * Every call is a unique result
-	 * @return
+	 * @return random byte array of 16 bytes
 	 */
 	private static byte[] getSalt() {
 		SecureRandom random = new SecureRandom();
@@ -97,7 +115,7 @@ public class PasswordHash {
 	
 	/***
 	 * Takes an iteration, salt, and password and concatenates them
-	 * @return the string to be persisted as the user's password e.g {iterations:salt:hashedPassword}
+	 * @return data storage safe password hash
 	 */
 	private String getPersistentPassword() {
 		return iterations + ":" + DatatypeConverter.printHexBinary(salt) + ":" + DatatypeConverter.printHexBinary(passBytes);

@@ -26,6 +26,13 @@ public class S3SavePhoto {
 		this.user = null;
 	}
 	
+	/**
+	 * Saves a photo to an S3 bucket hosted by AWS
+	 * @param img the byte stream of the photo file
+	 * @param contentType the type of the photo file (extension)
+	 * @return a UserProfile with the photo attribute set to the url
+	 * 		of the stored photo
+	 */
 	public UserProfile savePhoto(byte[] img, String contentType) {
 		if (user == null) {
 			return savePhoto(post.getId(), img, contentType, "post/");
