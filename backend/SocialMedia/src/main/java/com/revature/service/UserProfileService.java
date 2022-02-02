@@ -16,7 +16,7 @@ public interface UserProfileService {
 	
 	UserProfile saveProfileImage(UserProfile user, byte[] img, String contentType) throws RuntimeException;
 	
-	void generateResetPassword(String email);
+	UserProfile generateResetPassword(String email);
 	
 	UserProfile changeUserPassword(String uuid, String newPassword);
 }

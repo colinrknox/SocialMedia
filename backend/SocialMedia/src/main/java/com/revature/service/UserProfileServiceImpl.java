@@ -75,14 +75,15 @@ public class UserProfileServiceImpl implements UserProfileService {
 	}
 
 	@Override
-	public void generateResetPassword(String email) {
+	public UserProfile generateResetPassword(String email) {
 		UserProfile user = repo.findByEmail(email);
 		if (user == null) {
-			throw new RuntimeException("User not found");
+			return null;
 		}
+		
 		String token = UUID.randomUUID().toString();
 		String subject = "Password Reset";
-		String resetUrl = "http://localhost:8080/resetpassword?token=" + token;
+		String resetUrl = "http://localhost:9001/resetpassword.html?token=" + token;
 		String body = "Please reset your email here:\r\n";
 		
 		MimeMessage message = mailSender.createMimeMessage();
@@ -96,9 +97,12 @@ public class UserProfileServiceImpl implements UserProfileService {
 			tokenRepo.save(new ResetToken(token, user));
 		} catch (MailException e) {
 			e.printStackTrace();
+			return null;
 		} catch (MessagingException e) {
 			e.printStackTrace();
+			return null;
 		}
+		return user;
 	}
 	
 	@Override
