@@ -1,7 +1,7 @@
 package com.revature.controller;
 
 import java.util.Map;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -57,6 +57,10 @@ public class UserProfileController {
 	 */
 	@PostMapping(value = "/register")
 	public UserProfile register(@RequestBody UserProfile user) {
+		if (user.getEmail() == null || user.getFirstName() == null || user.getLastName() == null
+				|| user.getPassword() == null) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing registration info");
+		}
 		return serv.save(user);
 	}
 
@@ -78,23 +82,27 @@ public class UserProfileController {
 		UserProfile user = (UserProfile) session.getAttribute("account");
 		session.setAttribute("account", serv.saveAbout(user, about));
 	}
-	
-	
-	/* 
+
+	/*
 	 * searches for the user in the database by their id(primary key)
+	 * 
 	 * @author Luis R
 	 */
 	@GetMapping(value = "/user/{userId}")
-	public Optional<UserProfile> getUserProfileById(@PathVariable int userId) {
-		return serv.findById(userId);
+	public UserProfile getUserProfileById(@PathVariable int userId) {
+		try {
+			return serv.findById(userId).get();
+		} catch (NoSuchElementException e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No account found with id: " + userId);
+		}
 	}
-	
+
 	@GetMapping(value = "/myaccount")
 	public UserProfile getMyProfile(HttpSession session) {
 		UserProfile user = (UserProfile) session.getAttribute("account");
 		return user;
 	}
-	
+
 	@PostMapping(value = "/photo/save")
 	public UserProfile saveProfileImage(HttpServletRequest req, @RequestBody byte[] img) throws RuntimeException {
 		UserProfile user = (UserProfile) req.getSession().getAttribute("account");
@@ -102,17 +110,17 @@ public class UserProfileController {
 		req.getSession().setAttribute("account", user);
 		return user;
 	}
-	
+
 	@PostMapping(value = "/password/recovery")
-	public void resetPassword(@RequestBody String email) {
+	public void passwordRecovery(@RequestBody String email) {
 		serv.generateResetPassword(email);
 	}
-	
+
 	@PostMapping(value = "/password/reset/{uuid}")
 	public UserProfile changePassword(@PathVariable String uuid, @RequestBody String newPassword) {
 		return serv.changeUserPassword(uuid, newPassword);
 	}
-	
+
 	@Autowired
 	public void setServ(UserProfileService serv) {
 		this.serv = serv;
