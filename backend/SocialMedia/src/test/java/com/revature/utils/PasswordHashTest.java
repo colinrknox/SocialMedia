@@ -17,24 +17,24 @@ class PasswordHashTest {
 	
 	@Test
 	public void testSamePassOnly() {
-		testPassHash = new PasswordHash.Builder().setPassword(testPass).build();
-		testPassHashTwo = new PasswordHash.Builder().setPassword(testPass).build();
+		testPassHash = PasswordHash.builder().setPassword(testPass).build();
+		testPassHashTwo = PasswordHash.builder().setPassword(testPass).build();
 		
 		assertFalse(testPassHash.validate(testPassHashTwo.passBytes));
 	}
 	
 	@Test
 	public void testSamePassSameIter() {
-		testPassHash = new PasswordHash.Builder().setIterations(1000).setPassword(testPass).build();
-		testPassHashTwo = new PasswordHash.Builder().setIterations(1000).setPassword(testPass).build();
+		testPassHash = PasswordHash.builder().setIterations(1000).setPassword(testPass).build();
+		testPassHashTwo = PasswordHash.builder().setIterations(1000).setPassword(testPass).build();
 		
 		assertFalse(testPassHash.validate(testPassHashTwo.passBytes));
 	}
 	
 	@Test
 	public void testAllSame() {
-		testPassHash = new PasswordHash.Builder().setIterations(1000).setPassword(testPass).build();
-		testPassHashTwo = new PasswordHash.Builder()
+		testPassHash = PasswordHash.builder().setIterations(1000).setPassword(testPass).build();
+		testPassHashTwo = PasswordHash.builder()
 				.setIterations(1000)
 				.setPassword(testPass)
 				.setSalt(testPassHash.salt)
@@ -45,8 +45,8 @@ class PasswordHashTest {
 	
 	@Test
 	public void testDiffPassOnly() {
-		testPassHash = new PasswordHash.Builder().setIterations(1000).setPassword(testPass).build();
-		testPassHashTwo = new PasswordHash.Builder()
+		testPassHash = PasswordHash.builder().setIterations(1000).setPassword(testPass).build();
+		testPassHashTwo = PasswordHash.builder()
 				.setIterations(1000)
 				.setPassword(testPassTwo)
 				.setSalt(testPassHash.salt)
@@ -57,10 +57,10 @@ class PasswordHashTest {
 	
 	@Test
 	public void testPasswordHashDefaults() {
-		testPassHash = new PasswordHash.Builder()
+		testPassHash = PasswordHash.builder()
 				.setPassword(testPass)
 				.build();
-		testPassHashTwo = new PasswordHash.Builder()
+		testPassHashTwo = PasswordHash.builder()
 				.setPassword(testPass)
 				.build();
 		

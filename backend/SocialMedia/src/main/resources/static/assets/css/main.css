@@ -254,6 +254,16 @@ body {
   margin-top: 100px;
   /* text-align: center; */
 }
+.login-container__link {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #212529;
+}
+.login-container__link:hover {
+  color: #515a61;
+  text-decoration: underline;
+}
 
 /* NAVBAR */
 .navbar-mobile {
