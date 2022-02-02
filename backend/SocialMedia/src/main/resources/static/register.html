@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Reset page</title>
+	<title>Register page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
@@ -13,20 +13,21 @@
 	<div class="login-page__login-container">
 		<div class="login-container__wrapper">
 			<div class="login-container">
-				<h4 class="header">Password reset</h4>
+				<h4 class="header">Register</h4>
 				<form
 					class="form"
 					method="POST"
 					action="/ersapp/forwarding/login">
-					<label class="label" for="username">Enter your email to reset your password</label>
-					<input class="input" id="email" type="text" placeholder="email" name="email">
-					<input class="btn btn-primary" type="submit" value="Reset" />
+					<label class="label" for="email">Email</label>
+					<input class="input" id="email" type="text" placeholder="Enter your email" name="email">
+					<label class="label" for="firstName">First name</label>
+					<input class="input" id="firstName" type="text" placeholder="Enter your first name" firstName="firstName">
+					<label class="label" for="lastName">Last name</label>
+					<input class="input" id="lastName" type="text" placeholder="Enter your last name" name="lastName">
+					<label class="label" for="password">Password</label>
+					<input class="input" id="password" type="text" placeholder="Enter your password" name="password">
+					<input class="btn btn-primary" type="submit" value="Submit" />
 				</form>
-				<!-- <form method="GET" action="/ersapp/json/alltickets">
-					<p>all tickets</p>
-					<input type="submit" value="show all tickets" />
-				</form>
-				</div> -->
 			</div>
 		</div>
 	</div>
