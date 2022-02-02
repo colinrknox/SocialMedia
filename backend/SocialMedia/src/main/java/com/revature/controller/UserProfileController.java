@@ -96,6 +96,15 @@ public class UserProfileController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No account found with id: " + userId);
 		}
 	}
+	
+	@GetMapping(value = "/user/email")
+	public UserProfile getUserProfileByEmail(@RequestBody String email) {
+		UserProfile user = serv.findByEmail(email);
+		if (user == null) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email doesn't match any users");
+		}
+		return user;
+	}
 
 	@GetMapping(value = "/myaccount")
 	public UserProfile getMyProfile(HttpSession session) {

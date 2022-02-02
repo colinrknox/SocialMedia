@@ -34,6 +34,11 @@ public class UserProfileServiceImpl implements UserProfileService {
 	public Optional<UserProfile> findById(int id) {
 		return repo.findById(id);
 	}
+	
+	@Override
+	public UserProfile findByEmail(String email) {
+		return repo.findByEmail(email);
+	}
 
 	@Override
 	public UserProfile authenticate(String email, String password) {
