@@ -12,7 +12,11 @@ public interface UserProfileService {
 
 	UserProfile save(UserProfile user);
 	
-	void saveAbout(UserProfile user, String about);
+	UserProfile saveAbout(UserProfile user, String about);
 	
+	UserProfile saveProfileImage(UserProfile user, byte[] img, String contentType) throws RuntimeException;
 	
+	void generateResetPassword(String email);
+	
+	UserProfile changeUserPassword(String uuid, String newPassword);
 }

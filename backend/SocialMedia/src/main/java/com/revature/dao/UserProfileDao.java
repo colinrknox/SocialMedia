@@ -22,12 +22,4 @@ public interface UserProfileDao extends JpaRepository<UserProfile, Integer> {
 	 * @return a User object with a matching email or null?
 	 */
 	public UserProfile findByEmail(String email);
-	
-	/**
-	 * Added by Luis R
-	 * method for finding userprofile by their id(primary key)
-	 * @param the user id
-	 * @return a user object of that id
-	*/
-	public UserProfile findByid(int id);
 }
