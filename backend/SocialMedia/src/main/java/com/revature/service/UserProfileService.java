@@ -7,6 +7,8 @@ import com.revature.model.UserProfile;
 public interface UserProfileService {
 
 	Optional<UserProfile> findById(int id);
+	
+	UserProfile findByEmail(String email);
 
 	UserProfile authenticate(String email, String password);
 
