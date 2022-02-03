@@ -79,6 +79,13 @@ public class UserProfileController {
 
 	@PostMapping(value = "/about/save")
 	public void saveAbout(HttpSession session, @RequestBody String about) {
+		/*
+		 * System.out.println("=================================================");
+		 * System.out.println("here");
+		 * System.out.println("=================================================");
+		 * System.out.println("session ===> " + session);
+		 * System.out.println("about ===> " + about);
+		 */
 		UserProfile user = (UserProfile) session.getAttribute("account");
 		session.setAttribute("account", serv.saveAbout(user, about));
 	}
