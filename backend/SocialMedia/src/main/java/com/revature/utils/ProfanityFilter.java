@@ -27,7 +27,7 @@ public class ProfanityFilter {
 	static {
 		badWords = new LinkedList<String>();
 		String path = System.getProperty("user.dir");
-		File badWordsFile = new File(path + "\\src\\main\\resources\\badwords");
+		File badWordsFile = new File(path + "/src/main/resources/badwords");
 		try (BufferedReader reader = new BufferedReader(new FileReader(badWordsFile))) {
 			String word;
 			while ((word = reader.readLine()) != null) {
