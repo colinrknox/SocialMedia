@@ -5,9 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.random.RandomGenerator;
 import java.util.regex.Pattern;
 
 /**
@@ -21,7 +21,7 @@ public class ProfanityFilter {
 	String unfiltered;
 	String filtered;
 	static List<String> badWords;
-	static RandomGenerator generator;
+	static SecureRandom generator;
 	String[] replacements = { "balderdash", "poo on a stick", "dagnabbit" };
 
 	static {
@@ -40,7 +40,7 @@ public class ProfanityFilter {
 			badWords.add("hokum");
 			io.printStackTrace();
 		}
-		generator = RandomGenerator.getDefault();
+		generator = new SecureRandom();
 	}
 
 	public ProfanityFilter(String unfiltered) {
