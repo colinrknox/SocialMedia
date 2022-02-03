@@ -13,9 +13,7 @@ import com.revature.model.PostComment;
 import com.revature.model.PostLike;
 import com.revature.model.UserPost;
 import com.revature.model.UserProfile;
-
-
-
+import com.revature.utils.ProfanityFilter;
 
 @Service
 public class UserPostServiceImpl implements UserPostService {
@@ -42,8 +40,10 @@ public class UserPostServiceImpl implements UserPostService {
 
 	@Override
 	public UserPost createPost(UserProfile user, UserPost post) {
+		ProfanityFilter filter = new ProfanityFilter(post.getText());
 		post.setCreationDate(Instant.now());
 		post.setAuthor(user.getId());
+		post.setText(filter.getFiltered());
 		return postRepo.save(post);
 	}
 
