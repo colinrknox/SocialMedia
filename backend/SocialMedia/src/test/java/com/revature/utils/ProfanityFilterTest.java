@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class ProfanityFilterTest {
