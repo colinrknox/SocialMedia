@@ -167,6 +167,24 @@ body {
   font-family: "Helvetica Neue", "Arial";
 }
 
+.popup-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: none;
+  justify-content: center;
+}
+
+.popup {
+  display: block;
+  position: absolute;
+  z-index: 9999;
+}
+
 /* CROSS */
 .cross {
   position: relative;
@@ -230,6 +248,7 @@ body {
   margin-bottom: 5px;
 }
 
+/* LOGIN */
 .login-page__login-container {
   height: 100vh;
   display: flex;
@@ -241,11 +260,20 @@ body {
 }
 
 .login-container {
+  position: relative;
   padding: 30px;
   border-radius: 6px;
   background-color: #f2f2f2;
   background-color: #fff;
   box-shadow: 0px 5px 30px 1px #bdbdbd;
+}
+.login-container__cross {
+  position: absolute;
+  z-index: 9999;
+  width: 20px;
+  height: 20px;
+  top: 20px;
+  right: 20px;
 }
 .login-container__wrapper {
   display: flex;
@@ -428,6 +456,7 @@ body {
   height: 23px;
 }
 
+/* ABOUT */
 .about {
   padding: 1rem;
   margin: 1rem;
@@ -436,7 +465,16 @@ body {
   font-size: 0.9rem;
   background-color: white;
 }
+.about__top-container {
+  display: flex;
+  justify-content: end;
+}
+.about__edit-image {
+  width: 25px;
+  height: 25px;
+}
 
+/* NEW POST */
 .new-post {
   display: flex;
   justify-content: space-between;
@@ -497,6 +535,11 @@ body {
   justify-content: center;
   align-items: center;
 }
+.post__actions {
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+}
 .post__image {
   width: 100%;
   max-width: 450px;
@@ -510,7 +553,51 @@ body {
 .post__like--red {
   color: red;
 }
+.post__action-description {
+  font-size: 14px;
+}
+.post__comments {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.post__comment {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.post__comment-author {
+  font-weight: bold;
+}
+.post__comment-text {
+  display: flex;
+  flex-direction: column;
+  color: #4f4f4f;
+}
+.post__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.post__write-comment {
+  width: 100%;
+  margin-top: 1rem;
+}
+.post__write-comment-top {
+  display: flex;
+}
+.post__write-comment-input {
+  width: 100%;
+  border: 1px solid #b6b6b6;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 14px;
+  color: #4f4f4f;
+}
 
+/* FOOTER */
 .footer {
   background-color: #151515;
   opacity: 0.8;
@@ -621,6 +708,18 @@ body {
 
 .pointer {
   cursor: pointer;
+}
+
+.ml-10 {
+  margin-left: 10px;
+}
+
+.ml-40 {
+  margin-left: 40px;
+}
+
+.mt-10 {
+  margin-top: 10px;
 }
 
 /*# sourceMappingURL=main.css.map */
