@@ -60,6 +60,11 @@ public class UserPostController {
 		UserProfile user = (UserProfile) session.getAttribute("account");
 		return serv.createComment(user, comment);
 	}
+	
+	@GetMapping("/likes/{postId}")
+	public Integer getLikes(@PathVariable Integer postId) {
+		return serv.getPostLikes(postId);
+	}
 
 	@Autowired
 	public void setServ(UserPostService serv) {

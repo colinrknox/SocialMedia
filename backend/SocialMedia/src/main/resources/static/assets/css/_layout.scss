@@ -1,3 +1,21 @@
+.popup-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: none;
+  justify-content: center;
+}
+
+.popup {
+  display: block;
+  position: absolute;
+  z-index: 9999;
+}
+
 /* CROSS */
 .cross {
   position: relative;
@@ -64,7 +82,7 @@
 	margin-bottom: 5px;
 }
 
-// LOGIN
+/* LOGIN */
 .login-page {
   &__login-container {
   height: 100vh;
@@ -79,11 +97,21 @@
 }
 
 .login-container {
+  position: relative;
 	padding: 30px;
   border-radius: 6px;
   background-color: #f2f2f2;
   background-color: #fff;
   box-shadow: 0px 5px 30px 1px #bdbdbd;
+
+  &__cross {
+    position: absolute;
+    z-index: 9999;
+    width: 20px;
+    height: 20px;
+    top: 20px;
+    right: 20px;
+  }
 
   &__wrapper {
     display: flex;
@@ -298,7 +326,7 @@
   }
 }
 
-// ABOUT
+/* ABOUT */
 .about {
   padding: 1rem;
   margin: 1rem;
@@ -307,9 +335,19 @@
   font-size: .9rem;
   background-color: white;
   // border: 1px solid black;
+
+  &__top-container {
+    display: flex;
+    justify-content: end;
+  }
+
+  &__edit-image {
+    width: 25px;
+    height: 25px;
+  }
 }
 
-// NEW POST
+/* NEW POST */
 .new-post {
   display: flex;
   justify-content: space-between;
@@ -379,6 +417,12 @@
     align-items: center;
   }
 
+  &__actions {
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+  }
+
   &__image {
     width: 100%;
     max-width: 450px;
@@ -395,9 +439,67 @@
   &__like--red {
     color: red;
   }
+
+  &__action-description {
+    font-size: 14px;
+  }
+
+  &__comments {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  &__comment {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    // border: 1px solid #b6b6b6;
+
+    &-author {
+      font-weight: bold;
+    }
+  }
+
+  &__comment-text {
+    display: flex;
+    flex-direction: column;
+    // font-size: 14px;
+    color: #4f4f4f;
+  }
+
+  &__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+
+  &__write-comment {
+    width: 100%;
+    margin-top: 1rem;
+    // border: 1px solid #b6b6b6;
+
+    &-top {
+      display: flex;
+      // justify-content: space-between;
+      // align-items: center;
+    }
+
+    &-input {
+      width: 100%;
+      // height: 30px;
+      border: 1px solid #b6b6b6;
+      border-radius: 5px;
+      padding: 5px;
+      font-size: 14px;
+      color: #4f4f4f;
+    }
+  }
 }
 
-// FOOTER
+/* FOOTER */
 .footer {
   background-color: #151515;
   opacity: 0.8;

@@ -18,6 +18,7 @@ import com.revature.dao.UserProfileDao;
 import com.revature.model.ResetToken;
 import com.revature.model.UserProfile;
 import com.revature.utils.PasswordHash;
+import com.revature.utils.ProfanityFilter;
 import com.revature.utils.S3SavePhoto;
 
 @Service
@@ -68,7 +69,8 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	@Override
 	public UserProfile saveAbout(UserProfile user, String about) {
-		user.setAbout(about);
+		ProfanityFilter filter = new ProfanityFilter(about);
+		user.setAbout(filter.getFiltered());
 		return repo.save(user);
 	}
 

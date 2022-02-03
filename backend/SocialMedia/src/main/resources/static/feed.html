@@ -118,12 +118,64 @@
                         <img class="post__image mt-2" src="./assets/images/nature.jpeg" alt="nature"/>
                     </div>
                     <div class="post__actions">
+
                         <img class="post__like" src="./assets/images/icons/heart-solid.svg"/>
                         <a onclick="like()">
                             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart" id="post_like_icon" class="post__like pointer svg-inline--fa fa-heart fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"></path></svg>
+
+                        <img class="post__like" src="./assets/images/icons/heart-solid.svg"/> 
+                        <a class="pointer" onclick="like()">
+                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart" id="post_like_icon"
+                                class="post__like pointer svg-inline--fa fa-heart fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 512 512">
+                                <path fill="currentColor"
+                                    d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z">
+                                </path>
+                            </svg>
+                            <p class="post__action-description">Like</p>
+
+                        </a> -->
+                        <!-- add function to open comment section after click on comment link -->
+                        <a class="ml-10 pointer" onclick="comment()"> 
+                            <svg enable-background="new 0 0 512 512" height="35px" id="Layer_1" version="1.1"
+                                viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <path
+                                    d="M170.476,166.19h155.097c4.285,0,7.76-3.469,7.76-7.754s-3.475-7.765-7.76-7.765H170.476c-4.285,0-7.754,3.48-7.754,7.765  S166.191,166.19,170.476,166.19z" />
+                                <path
+                                    d="M348.088,203.362H202.74c-4.284,0-7.759,3.469-7.759,7.754s3.475,7.765,7.759,7.765h145.348c4.284,0,7.754-3.48,7.754-7.765  S352.372,203.362,348.088,203.362z" />
+                                <path
+                                    d="M306.695,256.052H170.476c-4.285,0-7.754,3.469-7.754,7.754c0,4.284,3.469,7.754,7.754,7.754h136.219  c4.279,0,7.754-3.47,7.754-7.754C314.448,259.521,310.974,256.052,306.695,256.052z" />
+                                <path
+                                    d="M396.776,86.288H115.225c-29.992,0-54.403,22.562-54.403,50.308v154.83c0,27.735,24.411,50.297,54.403,50.297h166.034  l119.812,83.989v-84.135c27.996-2.038,50.108-23.753,50.108-50.151v-154.83C451.179,108.85,426.768,86.288,396.776,86.288z   M427.906,291.426c0,14.902-13.972,27.025-31.131,27.025h-18.978v62.523l-89.193-62.523h-173.38  c-17.164,0-31.131-12.123-31.131-27.025v-154.83c0-14.913,13.967-27.035,31.131-27.035h281.551  c17.159,0,31.131,12.123,31.131,27.035V291.426z" />
+                            </svg>
+                            <p class="post__action-description">Comment</p>
                         </a>
                     </div>
-                </div> -->
+                    <div class="post__comments">
+                        <div class="post__comment">
+                            <img class="post__avatar" src="./assets/images/avatar.jpeg"/>
+                            <div class="post__comment-text">
+                                <p class="post__comment-author">Ariella Deon Kemp Williamson</p>
+                                <p class="post__comment-content">Nunc mattis fermentum dui venenatis semper. Integer viverra, lacus vitae accumsan porta, ex velit ornare neque, ac ullamcorper ligula felis eget sem. Nam in magna felis. Ut iaculis eu mi finibus consectetur. Fusce faucibus risus diam, sit amet porta dui.</p>
+                            </div>
+                        </div>
+                        <div class="post__comment">
+                            <img class="post__avatar" src="./assets/images/avatar.jpeg"/>
+                            <div class="post__comment-text">
+                                <p class="post__comment-author">Ariella Deon Kemp Williamson</p>
+                                <p class="post__comment-content">Nunc mattis fermentum dui venenatis semper. Integer viverra, lacus vitae accumsan porta, ex velit ornare neque, ac ullamcorper ligula felis eget sem. Nam in magna felis. Ut iaculis eu mi finibus consectetur. Fusce faucibus risus diam, sit amet porta dui.</p>
+                            </div>
+                        </div>
+                        <div class="post__write-comment">
+                            <div class="post__write-comment-top">
+                                <img class="post__avatar" src="./assets/images/avatar.jpeg"/>
+                                <textarea class="post__write-comment-input" rows="5" cols="10"></textarea>
+                            </div>
+                            <input class="btn btn-primary ml-40 mt-10" value="submit" type="submit" />
+                        </div>
+                    </div>
+                </div> 
             </section>
         </div>
     </main>
