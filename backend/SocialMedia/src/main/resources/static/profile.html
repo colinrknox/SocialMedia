@@ -11,6 +11,8 @@
     <script src="./assets/js/togglePopup.js"></script>
     <script src="./assets/js/likePost.js" defer></script>
     <script src="./assets/js/updateAbout.js" defer></script>
+    <script src="./assets/js/createPost.js" defer></script>
+
 </head>
 <body>
     <div id="popup" class="popup-background">
@@ -117,14 +119,14 @@
                     </div>
                     <!-- <img class="new-post__avatar" src="./assets/images/avatar.jpeg" alt="avatar"/> -->
                 </div>
-                <div class="new-post__right">
+                <form class="new-post__right" id="new_post_form">
                     <h1 class="font-weight-bold">New post</h1>
                     <!-- <input class="form-control mt-3" placeholder="youtube link"/> -->
-                    <textarea class="form-control mt-3" placeholder="enter your post here"></textarea>
+                    <textarea class="form-control mt-3" id="new_post_text" placeholder="enter your post here"></textarea>
                     <!-- <label class="form-label" for="customFile">Default file input example</label> -->
-                    <input class="form-control mt-3" type="file" />
+                    <input class="form-control mt-3" id="new_post_image" type="file" />
                     <button class="btn btn-primary mt-3">Submit</button>
-                </div>
+                </form>
             </section>
             <section class="posts">
                 <h1 class="font-weight-bold">Posts</h1>
