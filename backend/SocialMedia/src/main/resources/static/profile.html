@@ -8,9 +8,36 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/main.css">
+    <script src="./assets/js/togglePopup.js"></script>
     <script src="./assets/js/likePost.js" defer></script>
+    <script src="./assets/js/updateAbout.js" defer></script>
+    <script src="./assets/js/createPost.js" defer></script>
+
 </head>
 <body>
+    <div id="popup" class="popup-background">
+        <div class="popup">
+            <div class="login-container__wrapper">
+                <div class="login-container">
+                    <img onclick="closePopup()" class="login-container__cross pointer" src="./assets/images/icons/times.svg"/>
+                    <h4 class="header">Edit About info</h4>
+                    <form id="about" class="form">
+                        <textarea class="input" id="about_info_popup" type="text" name="username" rows="20" cols="20">
+                            Blonde, oily hair almost fully covers a chiseled, time-worn face. Piercing amber eyes, set gracefully within their sockets, watch discreetly over the country they've looked after for so long.
+                    Scars reaching from the right side of the forehead , running towards the right side of her lips and ending above her right eye and leaves an intriguing memory of an unusual alliance.
+                    The is the face of Ariella Deon Kemp Williamson, a true champion among dwarves. She stands common among others, despite her light frame.
+                        </textarea>
+                        <input class="btn btn-primary" type="submit" value="Save" />
+                    </form>
+                    <!-- <form method="GET" action="/ersapp/json/alltickets">
+                        <p>all tickets</p>
+                        <input type="submit" value="show all tickets" />
+                    </form>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
     <nav class="navbar-mobile__menu-opener">
         <input class="form-control navbar-mobile__input"/>
         <img class="p-16" src="./assets/images/icons/menu-hamburger.svg" alt="open mobile menu button (click to open mobile menu)">
@@ -23,7 +50,7 @@
             </div>
         </div>
         <ul id="mobile-menu-list" class="navbar-mobile__navbar-list">
-            <a href="index.html">
+            <a href="profile.html">
                 <li class="navbar-list__navbar-item pt-8">profile</li>
             </a>
             <a href="feed.html">
@@ -38,7 +65,7 @@
         <ul class="navbar-desktop__navbar-list">
             <div class="navbar-desktop__navbar-list-group">
                 <li class="navbar-list__navbar-item pointer">
-                    <a class="navbar-list__navbar-item-link" href="index.html">profile</a>
+                    <a class="navbar-list__navbar-item-link" href="profile.html">profile</a>
                 </li>
                 <li class="navbar-list__navbar-item pointer">
                     <a class="navbar-list__navbar-item-link" href="feed.html">feed</a>
@@ -74,7 +101,10 @@
                 <h2 class="profile__friends-count">340 friends</h2>
             </section> -->
             <section class="about">
-                <p>Blonde, oily hair almost fully covers a chiseled, time-worn face. Piercing amber eyes, set gracefully within their sockets, watch discreetly over the country they've looked after for so long.
+                <div class="about__top-container">
+                    <img onclick="openPopup()" class="about__edit-image pointer" src="./assets/images/icons/edit.svg"/>
+                </div>
+                <p id="about_info">Blonde, oily hair almost fully covers a chiseled, time-worn face. Piercing amber eyes, set gracefully within their sockets, watch discreetly over the country they've looked after for so long.
                     Scars reaching from the right side of the forehead , running towards the right side of her lips and ending above her right eye and leaves an intriguing memory of an unusual alliance.</br></br>The is the face of Ariella Deon Kemp Williamson, a true champion among dwarves. She stands common among others, despite her light frame.</p>
             </section>
         </div>
@@ -89,14 +119,14 @@
                     </div>
                     <!-- <img class="new-post__avatar" src="./assets/images/avatar.jpeg" alt="avatar"/> -->
                 </div>
-                <div class="new-post__right">
+                <form class="new-post__right" id="new_post_form">
                     <h1 class="font-weight-bold">New post</h1>
                     <!-- <input class="form-control mt-3" placeholder="youtube link"/> -->
-                    <textarea class="form-control mt-3" placeholder="enter your post here"></textarea>
+                    <textarea class="form-control mt-3" id="new_post_text" placeholder="enter your post here"></textarea>
                     <!-- <label class="form-label" for="customFile">Default file input example</label> -->
-                    <input class="form-control mt-3" type="file" />
+                    <input class="form-control mt-3" id="new_post_image" type="file" />
                     <button class="btn btn-primary mt-3">Submit</button>
-                </div>
+                </form>
             </section>
             <section class="posts">
                 <h1 class="font-weight-bold">Posts</h1>
@@ -117,9 +147,54 @@
                     </div>
                     <div class="post__actions">
                         <!-- <img class="post__like" src="./assets/images/icons/heart-solid.svg"/> -->
-                        <a onclick="like()">
-                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart" id="post_like_icon" class="post__like pointer svg-inline--fa fa-heart fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"></path></svg>
+                        <a class="pointer" onclick="like()">
+                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart" id="post_like_icon"
+                                class="post__like pointer svg-inline--fa fa-heart fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 512 512">
+                                <path fill="currentColor"
+                                    d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z">
+                                </path>
+                            </svg>
+                            <p class="post__action-description">Like</p>
                         </a>
+                        <a class="ml-10 pointer" onclick="comment()">
+                            <svg enable-background="new 0 0 512 512" height="35px" id="Layer_1" version="1.1"
+                                viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <path
+                                    d="M170.476,166.19h155.097c4.285,0,7.76-3.469,7.76-7.754s-3.475-7.765-7.76-7.765H170.476c-4.285,0-7.754,3.48-7.754,7.765  S166.191,166.19,170.476,166.19z" />
+                                <path
+                                    d="M348.088,203.362H202.74c-4.284,0-7.759,3.469-7.759,7.754s3.475,7.765,7.759,7.765h145.348c4.284,0,7.754-3.48,7.754-7.765  S352.372,203.362,348.088,203.362z" />
+                                <path
+                                    d="M306.695,256.052H170.476c-4.285,0-7.754,3.469-7.754,7.754c0,4.284,3.469,7.754,7.754,7.754h136.219  c4.279,0,7.754-3.47,7.754-7.754C314.448,259.521,310.974,256.052,306.695,256.052z" />
+                                <path
+                                    d="M396.776,86.288H115.225c-29.992,0-54.403,22.562-54.403,50.308v154.83c0,27.735,24.411,50.297,54.403,50.297h166.034  l119.812,83.989v-84.135c27.996-2.038,50.108-23.753,50.108-50.151v-154.83C451.179,108.85,426.768,86.288,396.776,86.288z   M427.906,291.426c0,14.902-13.972,27.025-31.131,27.025h-18.978v62.523l-89.193-62.523h-173.38  c-17.164,0-31.131-12.123-31.131-27.025v-154.83c0-14.913,13.967-27.035,31.131-27.035h281.551  c17.159,0,31.131,12.123,31.131,27.035V291.426z" />
+                            </svg>
+                            <p class="post__action-description">Comment</p>
+                        </a>
+                    </div>
+                    <div class="post__comments">
+                        <div class="post__comment">
+                            <img class="post__avatar" src="./assets/images/avatar.jpeg"/>
+                            <div class="post__comment-text">
+                                <p class="post__comment-author">Ariella Deon Kemp Williamson</p>
+                                <p class="post__comment-content">Nunc mattis fermentum dui venenatis semper. Integer viverra, lacus vitae accumsan porta, ex velit ornare neque, ac ullamcorper ligula felis eget sem. Nam in magna felis. Ut iaculis eu mi finibus consectetur. Fusce faucibus risus diam, sit amet porta dui.</p>
+                            </div>
+                        </div>
+                        <div class="post__comment">
+                            <img class="post__avatar" src="./assets/images/avatar.jpeg"/>
+                            <div class="post__comment-text">
+                                <p class="post__comment-author">Ariella Deon Kemp Williamson</p>
+                                <p class="post__comment-content">Nunc mattis fermentum dui venenatis semper. Integer viverra, lacus vitae accumsan porta, ex velit ornare neque, ac ullamcorper ligula felis eget sem. Nam in magna felis. Ut iaculis eu mi finibus consectetur. Fusce faucibus risus diam, sit amet porta dui.</p>
+                            </div>
+                        </div>
+                        <div class="post__write-comment">
+                            <div class="post__write-comment-top">
+                                <img class="post__avatar" src="./assets/images/avatar.jpeg"/>
+                                <textarea class="post__write-comment-input" rows="5" cols="10"></textarea>
+                            </div>
+                            <input class="btn btn-primary ml-40 mt-10" value="Submit" type="submit" />
+                        </div>
                     </div>
                 </div>
             </section>
@@ -128,7 +203,7 @@
     <footer class="footer">
         <ul class="footer__list">
             <li class="footer__list-item">
-                <a class="footer__link" href="index.html">profile</a>
+                <a class="footer__link" href="profile.html">profile</a>
             </li>
             <li class="footer__list-item">
                 <a class="footer__link" href="feed.html">feed</a>

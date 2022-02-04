@@ -18,6 +18,7 @@ import com.revature.dao.UserProfileDao;
 import com.revature.model.ResetToken;
 import com.revature.model.UserProfile;
 import com.revature.utils.PasswordHash;
+import com.revature.utils.ProfanityFilter;
 import com.revature.utils.S3SavePhoto;
 
 @Service
@@ -34,6 +35,11 @@ public class UserProfileServiceImpl implements UserProfileService {
 	public Optional<UserProfile> findById(int id) {
 		return repo.findById(id);
 	}
+	
+	@Override
+	public UserProfile findByEmail(String email) {
+		return repo.findByEmail(email);
+	}
 
 	@Override
 	public UserProfile authenticate(String email, String password) {
@@ -42,13 +48,19 @@ public class UserProfileServiceImpl implements UserProfileService {
 			return null;
 		}
 		String[] tokens = u.getPassword().split(":");
-		hash = PasswordHash.builder().setSalt(tokens[1]).setPassword(password).setIterations(tokens[0]).build();
+		hash = PasswordHash.builder()
+				.setSalt(tokens[1])
+				.setPassword(password)
+				.setIterations(tokens[0])
+				.build();
 		return hash.validate(tokens[2]) ? u : null;
 	}
 
 	@Override
 	public UserProfile save(UserProfile user) {
-		hash = PasswordHash.builder().setPassword(user.getPassword()).build();
+		hash = PasswordHash.builder()
+				.setPassword(user.getPassword())
+				.build();
 		user.setCreationDate(Instant.now());
 		user.setPassword(hash.getDbPassword());
 		user.setEmail(user.getEmail().toLowerCase());
@@ -57,26 +69,28 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	@Override
 	public UserProfile saveAbout(UserProfile user, String about) {
-		user.setAbout(about);
+		ProfanityFilter filter = new ProfanityFilter(about);
+		user.setAbout(filter.getFiltered());
 		return repo.save(user);
 	}
 
 	@Override
 	public UserProfile saveProfileImage(UserProfile user, byte[] img, String contentType) throws RuntimeException {
-		S3SavePhoto savePhoto = new S3SavePhoto(user);
-		user = savePhoto.savePhoto(img, contentType);
+		S3SavePhoto s3Bucket = new S3SavePhoto(user);
+		user = s3Bucket.savePhoto(img, contentType);
 		return repo.save(user);
 	}
 
 	@Override
-	public void generateResetPassword(String email) {
+	public UserProfile generateResetPassword(String email) {
 		UserProfile user = repo.findByEmail(email);
 		if (user == null) {
-			throw new RuntimeException("User not found");
+			return null;
 		}
+		
 		String token = UUID.randomUUID().toString();
 		String subject = "Password Reset";
-		String resetUrl = "http://localhost:8080/resetpassword?token=" + token;
+		String resetUrl = "http://localhost:9001/resetpassword.html?token=" + token;
 		String body = "Please reset your email here:\r\n";
 		
 		MimeMessage message = mailSender.createMimeMessage();
@@ -90,9 +104,30 @@ public class UserProfileServiceImpl implements UserProfileService {
 			tokenRepo.save(new ResetToken(token, user));
 		} catch (MailException e) {
 			e.printStackTrace();
+			return null;
 		} catch (MessagingException e) {
 			e.printStackTrace();
+			return null;
 		}
+		return user;
+	}
+	
+	@Override
+	public UserProfile changeUserPassword(String uuid, String newPassword) {
+		// Get reset token
+		ResetToken token = tokenRepo.getById(uuid);
+		// Get user profile
+		UserProfile user = token.getUser();
+		String[] tokens = user.getPassword().split(":");
+		// Hash the password
+		hash = PasswordHash.builder()
+				.setSalt(tokens[0])
+				.setPassword(newPassword)
+				.setIterations(tokens[2])
+				.build();
+		user.setPassword(hash.getDbPassword());
+		// Set user profile's password to the new hash
+		return repo.save(user);
 	}
 
 	public void setHash(PasswordHash hash) {
