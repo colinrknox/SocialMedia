@@ -60,6 +60,12 @@ public class UserPostServiceImpl implements UserPostService {
 		return commentRepo.save(comment);
 	}
 	
+	@Override
+	public List<PostComment> getCommentsDesc(Integer postId)
+	{
+		return commentRepo.findByPostIdOrderByCreationDateDesc(postId);
+	}
+	
 	@Autowired
 	public void setLikeRepo(PostLikeDao likeRepo) {
 		this.likeRepo = likeRepo;
