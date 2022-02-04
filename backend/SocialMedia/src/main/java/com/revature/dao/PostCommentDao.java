@@ -1,5 +1,7 @@
 package com.revature.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +18,8 @@ import com.revature.model.PostComment;
 //This is an interface which will be implemented later on
 @Repository
 public interface PostCommentDao extends JpaRepository<PostComment, Integer> {
-
+	public List<PostComment> findByPostIdOrderByCreationDateDesc(Integer postId);
+	
 }
+
+

@@ -61,6 +61,12 @@ public class UserPostController {
 		return serv.createComment(user, comment);
 	}
 	
+	@GetMapping("/comments/{postId}")
+	public List<PostComment> getComments(@PathVariable Integer postId)
+	{
+		return serv.getCommentsDesc(postId);
+	}
+	
 	@GetMapping("/likes/{postId}")
 	public Integer getLikes(@PathVariable Integer postId) {
 		return serv.getPostLikes(postId);

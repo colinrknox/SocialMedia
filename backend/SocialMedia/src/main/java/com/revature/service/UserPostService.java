@@ -23,4 +23,6 @@ public interface UserPostService {
 	List<UserPost> findUserPostsDesc(Integer author);
 	
 	PostComment createComment(UserProfile user, PostComment comment);
+	
+	List<PostComment> getCommentsDesc(Integer postId);
 }
