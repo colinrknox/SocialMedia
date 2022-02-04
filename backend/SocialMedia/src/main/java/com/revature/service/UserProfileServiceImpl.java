@@ -77,7 +77,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Override
 	public UserProfile saveProfileImage(UserProfile user, byte[] img, String contentType) throws RuntimeException {
 		S3SavePhoto s3Bucket = new S3SavePhoto(user);
-		user = s3Bucket.savePhoto(img, contentType);
+		user.setPhoto(s3Bucket.savePhoto(img, contentType));
 		return repo.save(user);
 	}
 

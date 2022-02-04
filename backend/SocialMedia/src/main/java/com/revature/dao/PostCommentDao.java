@@ -15,7 +15,6 @@ import com.revature.model.PostComment;
  *
  */
 
-//This is an interface which will be implemented later on
 @Repository
 public interface PostCommentDao extends JpaRepository<PostComment, Integer> {
 	public List<PostComment> findByPostIdOrderByCreationDateDesc(Integer postId);

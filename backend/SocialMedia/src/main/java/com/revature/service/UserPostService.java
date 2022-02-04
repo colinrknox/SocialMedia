@@ -15,10 +15,12 @@ public interface UserPostService {
 	
 	UserPost createPost(UserProfile user, UserPost post);
 	
+	void addPostImage(Integer postId, byte[] img, String contentType);
+	
 	PostLike createLike(Integer profileId, Integer postId);
 
 	List<UserPost> findAllPostsDesc();
-
+	
 	//Added by LuisR
 	List<UserPost> findUserPostsDesc(Integer author);
 	

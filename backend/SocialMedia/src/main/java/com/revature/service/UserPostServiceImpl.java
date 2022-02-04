@@ -14,6 +14,7 @@ import com.revature.model.PostLike;
 import com.revature.model.UserPost;
 import com.revature.model.UserProfile;
 import com.revature.utils.ProfanityFilter;
+import com.revature.utils.S3SavePhoto;
 
 @Service
 public class UserPostServiceImpl implements UserPostService {
@@ -46,6 +47,14 @@ public class UserPostServiceImpl implements UserPostService {
 		post.setText(filter.getFiltered());
 		return postRepo.save(post);
 	}
+	
+	@Override
+	public void addPostImage(Integer postId, byte[] img, String contentType) {
+		UserPost post = postRepo.getById(postId);
+		S3SavePhoto s3Bucket = new S3SavePhoto(post);
+		post.setImage(s3Bucket.savePhoto(img, contentType));
+		postRepo.save(post);
+	}
 
 	@Override
 	public PostLike createLike(Integer profileId, Integer postId) {
@@ -61,8 +70,7 @@ public class UserPostServiceImpl implements UserPostService {
 	}
 	
 	@Override
-	public List<PostComment> getCommentsDesc(Integer postId)
-	{
+	public List<PostComment> getCommentsDesc(Integer postId) {
 		return commentRepo.findByPostIdOrderByCreationDateDesc(postId);
 	}
 	
