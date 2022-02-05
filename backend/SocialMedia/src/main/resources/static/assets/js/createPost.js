@@ -1,7 +1,7 @@
 // const LOCAL_HOST = 'localhost:9001';
 
 window.onload = () => {
-    console.log("window.onload");
+    // console.log("window.onload");
     document.getElementById("new_post_form").onsubmit = createPost;
 }
 

@@ -9,10 +9,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/main.css">
     <script src="./assets/js/updateAbout.js" defer></script>
+    <script src="./assets/js/updateProfilePhoto.js" defer></script>
     <script src="./assets/js/togglePopup.js"></script>
     <script src="./assets/js/likePost.js" defer></script>
     <script src="./assets/js/createPost.js" defer></script>
     <script src="./assets/js/UserProfilePage.js" defer></script>
+
 
 </head>
 <body>
@@ -87,9 +89,12 @@
         <div class="main__left">
             <section class="profile">
                 <div class="round-avatar__container">
-                    <img class="round-avatar__avatar" src="./assets/images/avatar.jpeg" alt="avatar"/>
+                    <img class="round-avatar__avatar" id="user_photo" src="./assets/images/avatar.jpeg" alt="avatar"/>
                     <div class="change-avatar__container pointer">
-                        <img class="change-avatar__image" src="./assets/images/icons/camera.svg" alt="camera"/>
+                        <input type="file" name="update_user_photo" id="update_user_photo" style="display:none;" />
+                        <label for="update_user_photo">
+                            <img class="change-avatar__image pointer" src="./assets/images/icons/camera.svg" alt="camera" />
+                        </label>
                     </div>
                 </div>
                 <h1 class="profile__name">Ariella Deon Kemp Williamson</h1>
