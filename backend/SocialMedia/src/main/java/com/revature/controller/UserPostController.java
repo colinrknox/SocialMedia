@@ -58,9 +58,8 @@ public class UserPostController {
 	//Added by LuisR
 	@GetMapping("/posts/{author}")
 
-	public ResponseEntity<List<UserPost>> getAuthorPosts(@PathVariable Integer author) 
-	{
-		return new ResponseEntity<List<UserPost>>(serv.findUserPostsDesc(author), HttpStatus.OK);
+	public List<UserPost> getAuthorPosts(@PathVariable Integer author) {
+		return serv.findUserPostsDesc(author);
 	}
 	
 	@GetMapping("/posts/myposts")
