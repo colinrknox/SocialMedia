@@ -57,6 +57,7 @@ public class UserPostController {
 	
 	//Added by LuisR
 	@GetMapping("/posts/{author}")
+
 	public List<UserPost> getAuthorPosts(@PathVariable Integer author) {
 		return serv.findUserPostsDesc(author);
 	}
