@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
 import com.revature.model.PostComment;
 import com.revature.model.PostLike;
 import com.revature.model.UserPost;
@@ -57,9 +55,8 @@ public class UserPostController {
 	//Added by LuisR
 	@GetMapping("/posts/{author}")
 
-	public ResponseEntity<List<UserPost>> getAuthorPosts(@PathVariable Integer author) 
-	{
-		return new ResponseEntity<List<UserPost>>(serv.findUserPostsDesc(author), HttpStatus.OK);
+	public List<UserPost> getAuthorPosts(@PathVariable Integer author) {
+		return serv.findUserPostsDesc(author);
 	}
 	
 	@GetMapping("/posts/myposts")
