@@ -8,7 +8,11 @@ async function viewFriends(element){
         
         const response = await fetch('http://localhost:9001/user/email', requestOptions);
         const ourJSON = await response.json();
-        window.location.replace("http://localhost:9001/profile.html?id=" + ourJSON.id);
+        if(ourJSON.id != null){
+            window.location.replace("http://localhost:9001/profile.html?id=" + ourJSON.id);
+        }else{
+            alert("No user with this email address")
+        }
         
     }
   }
