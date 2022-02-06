@@ -62,7 +62,7 @@ public class UserPostServiceImpl implements UserPostService {
 	public void addPostImage(Integer postId, byte[] img, String contentType) {
 		UserPost post = postRepo.getById(postId);
 		S3SavePhoto s3Bucket = new S3SavePhoto(post);
-		post.setImage(s3Bucket.savePostPhoto(postId, img, contentType));
+		post.setImage(s3Bucket.savePhoto(img, contentType));
 		postRepo.save(post);
 	}
 
