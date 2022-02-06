@@ -6,6 +6,7 @@ window.onload = function () {
 	document.getElementById("new_post_form").onsubmit = createPost;
 	document.getElementById("about").onsubmit = updateAbout;
 	document.getElementById("about").addEventListener('submit', updateAbout);
+	document.getElementById("update_user_photo").addEventListener('change', updateProfilePhoto);
 	getPosts();
 }
 
@@ -326,4 +327,34 @@ async function submitUpdateAbout(about) {
 			console.log("About update Failed #2");
 			console.log("error => ", error);
 		});
+}
+
+/***************************************
+ * UPDATE PROFILE PHOTO FUNCTIONALITY
+ ***************************************/
+function updateProfilePhoto(event) {
+	event.preventDefault();
+
+	let photo = document.getElementById("update_user_photo").files[0];
+	console.log("photo", photo);
+	submitUpdatePhoto(photo);
+}
+
+async function submitUpdatePhoto(photo) {
+	let result = await fetch(`http://${LOCAL_HOST}/photo/save`, {
+		method: "POST",
+		body: photo,
+	}).then((response) => {
+		if (response.ok) {
+			console.log("Photo update success");
+			return response.json();
+		} else {
+			console.log("Photo update Failed #1");
+		}
+	}).then((postObj) => {
+		document.getElementById("user_photo").src = postObj.photo;
+	}).catch((error) => {
+		console.log("Photo update Failed #2");
+		console.log("error => ", error);
+	});
 }
