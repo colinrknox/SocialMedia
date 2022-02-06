@@ -19,7 +19,9 @@ const likePost = function (id) {
 		let element = event.currentTarget;
 		element.children[0].classList.add("post__like--red");
 		const response = await fetch('http://localhost:9001/api/like/create/' + id, { method: 'POST' });
-		location.reload();
+		const response2 = await fetch('http://localhost:9001/api/likes/' + id);
+      	const ourJSON = await response2.json();
+      	element.children[2].innerHTML = ourJSON;
 
 	};
 };
@@ -172,8 +174,8 @@ async function getPosts() {
           d="M396.776,86.288H115.225c-29.992,0-54.403,22.562-54.403,50.308v154.83c0,27.735,24.411,50.297,54.403,50.297h166.034  l119.812,83.989v-84.135c27.996-2.038,50.108-23.753,50.108-50.151v-154.83C451.179,108.85,426.768,86.288,396.776,86.288z   M427.906,291.426c0,14.902-13.972,27.025-31.131,27.025h-18.978v62.523l-89.193-62.523h-173.38  c-17.164,0-31.131-12.123-31.131-27.025v-154.83c0-14.913,13.967-27.035,31.131-27.035h281.551  c17.159,0,31.131,12.123,31.131,27.035V291.426z" />
   </svg>
   <p class="post__action-description">Comment</p>`
-		div5.appendChild(a3);
-		div5.appendChild(likesNum);
+  		a3.appendChild(likesNum);
+  		div5.appendChild(a3);
 		div5.appendChild(a4);
 
 		let div6 = document.createElement("div");
