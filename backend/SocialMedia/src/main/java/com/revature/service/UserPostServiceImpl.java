@@ -74,8 +74,10 @@ public class UserPostServiceImpl implements UserPostService {
 	
 	@Override
 	public PostComment createComment(UserProfile user, PostComment comment) {
+		ProfanityFilter filter = new ProfanityFilter(comment.getText());
 		comment.setAuthor(user.getId());
 		comment.setCreationDate(Instant.now());
+		comment.setText(filter.getFiltered());
 		return commentRepo.save(comment);
 	}
 	
