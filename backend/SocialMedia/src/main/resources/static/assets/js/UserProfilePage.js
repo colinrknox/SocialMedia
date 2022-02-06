@@ -297,7 +297,7 @@ async function submitNewPost(text, image) {
 			}
 		});
 	}
-	getPosts();
+	window.reload;
 }
 
 /***************************************
