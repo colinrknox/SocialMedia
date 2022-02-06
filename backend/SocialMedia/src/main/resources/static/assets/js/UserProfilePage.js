@@ -1,14 +1,17 @@
 console.log('connected to user post page');
-window.onload = function() {
-
+window.onload = function () {
+	if (!sessionStorage['loggedIn']) {
+		location.href = 'http://localhost:9001/login.html';
+	}
+	document.getElementById("new_post_form").onsubmit = createPost;
 	getPosts();
 
 }
 
 //Functoion to create like and change color of heart icon
-const likePost = function(id) {
+const likePost = function (id) {
 
-	return async function(event) {
+	return async function (event) {
 
 
 		let element = event.currentTarget;
@@ -20,9 +23,9 @@ const likePost = function(id) {
 };
 
 //Function to create comment 
-const createComment = function(id) {
+const createComment = function (id) {
 
-	return async function(event) {
+	return async function (event) {
 		event.preventDefault();
 		let element = event.currentTarget;
 		let text = element.children[0].children[0].children[1].value;
@@ -41,21 +44,21 @@ const createComment = function(id) {
 //luis change for certain user posts
 async function getPosts() {
 	//Request that gets certain user posts
-   const queryString = window.location.search;
-   const urlParams = new URLSearchParams(queryString);
-   const email = urlParams.get('id');
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const email = urlParams.get('id');
 
-   let response = null;
-   let ourJSON = null;
-   if(email != null){
-      response = await fetch('http://localhost:9001/api/posts/' + email);
-      ourJSON = await response.json();
-   }else{
-      response = await fetch('http://localhost:9001/api/posts/myposts');
-      ourJSON = await response.json();
-   }
+	let response = null;
+	let ourJSON = null;
+	if (email != null) {
+		response = await fetch('http://localhost:9001/api/posts/' + email);
+		ourJSON = await response.json();
+	} else {
+		response = await fetch('http://localhost:9001/api/posts/myposts');
+		ourJSON = await response.json();
+	}
 
-  
+
 
 	for (let i = 0; i < ourJSON.length; i++) {
 		//Get Author data of post
@@ -224,13 +227,13 @@ async function getPosts() {
 		let gettingUser = null;
 		let user = null;
 
-      if(email != null){
-         gettingUser = await fetch('http://localhost:9001/user/' + email);
-         user = await gettingUser.json();
-      }else{
-         gettingUser = await fetch('http://localhost:9001/myaccount');
-         user = await gettingUser.json();
-      }
+		if (email != null) {
+			gettingUser = await fetch('http://localhost:9001/user/' + email);
+			user = await gettingUser.json();
+		} else {
+			gettingUser = await fetch('http://localhost:9001/myaccount');
+			user = await gettingUser.json();
+		}
 
 		let profilename = document.getElementById('profileName');
 		profilename.innerText = (user.firstName + " " + user.lastName);
@@ -238,10 +241,10 @@ async function getPosts() {
 		let profileInfo = document.getElementById('about_info');
 		profileInfo.innerText = user.about;
 
-		
+
 		let profilePic = document.getElementById('profilePic');
 		profilePic.src = user.photo;
-		
+
 		let profilePic2 = document.getElementById('profilePic2');
 		profilePic2.src = user.photo;
 
@@ -249,4 +252,61 @@ async function getPosts() {
 	}
 
 
+}
+
+
+function createPost(event) {
+	event.preventDefault();
+	console.log("createPost");
+
+	let text = document.getElementById("new_post_text").value;
+	let image = document.getElementById("new_post_image").files[0];
+	submitNewPost(text, image);
+}
+
+async function submitNewPost(text, image) {
+	console.log("submitNewPost");
+	console.log("text ===> ", text);
+	// console.log("image ===> ", image);
+
+	let postBody = JSON.stringify({
+		"text": text
+	})
+
+	let post = await fetch(`http://localhost:9001/api/posts/create`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: postBody
+
+	}).then(response => {
+		if (response.ok) {
+			console.log("Create post success");
+			// document.getElementById("about_info").innerText = about;
+		} else {
+			console.log("Create post Failed #1");
+		}
+	}).then(data => { return data; }).catch(error => {
+		console.log("Create post Failed #2");
+		console.log("error => ", error);
+	});
+
+	if (image) {
+		await fetch(`http://localhost:9001/posts/add/photo/${post.id}`, {
+			method: 'POST',
+			headers: {
+				'Content-type': image.type
+			},
+			body: image
+		}).then(respose => {
+			if (response.ok) {
+				console.log('image added to post');
+			} else {
+				console.log('image failed to be added');
+			}
+		});
+	}
+
+	getPosts();
 }
