@@ -341,7 +341,7 @@ function updateProfilePhoto(event) {
 }
 
 async function submitUpdatePhoto(photo) {
-	let result = await fetch(`http://${LOCAL_HOST}/photo/save`, {
+	let result = await fetch(`http://localhost:9001/photo/save`, {
 		method: "POST",
 		body: photo,
 	}).then((response) => {

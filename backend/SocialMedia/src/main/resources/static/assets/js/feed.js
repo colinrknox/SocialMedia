@@ -3,8 +3,6 @@ window.onload = function(){
       location.href = 'http://localhost:9001/login.html';
    }
    getPosts();
-
-
 }
 
 //Functoion to create like and change color of heart icon
