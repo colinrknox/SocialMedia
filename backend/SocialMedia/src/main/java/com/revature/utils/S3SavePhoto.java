@@ -50,7 +50,7 @@ public class S3SavePhoto {
 		if (buckets.isEmpty()) {
 			throw new RuntimeException("No AWS buckets found");
 		}
-		String key = keyDir + String.valueOf(user.getId());
+		String key = keyDir + String.valueOf(id);
 		PutObjectRequest req = PutObjectRequest.builder()
 				.bucket(buckets.get(0).name())
 				.key(key)

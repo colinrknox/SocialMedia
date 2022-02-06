@@ -1,5 +1,7 @@
 window.onload = function(){ 
-
+   if (!sessionStorage['loggedIn']) {
+      location.href = 'http://localhost:9001/login.html';
+   }
    getPosts();
 
 
