@@ -244,7 +244,7 @@ async function getPosts() {
 		profileInfo.innerText = user.about;
 
 
-		let profilePic = document.getElementById('profilePic');
+		let profilePic = document.getElementById('user_photo');
 		profilePic.src = user.photo;
 
 		let profilePic2 = document.getElementById('profilePic2');
