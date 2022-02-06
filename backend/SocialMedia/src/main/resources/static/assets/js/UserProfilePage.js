@@ -41,10 +41,21 @@ const createComment = function(id) {
 //luis change for certain user posts
 async function getPosts() {
 	//Request that gets certain user posts
-	const response = await fetch('http://localhost:9001/api/posts/myposts');
-	const ourJSON = await response.json();
+   const queryString = window.location.search;
+   const urlParams = new URLSearchParams(queryString);
+   const email = urlParams.get('id');
 
+   let response = null;
+   let ourJSON = null;
+   if(email != null){
+      response = await fetch('http://localhost:9001/api/posts/' + email);
+      ourJSON = await response.json();
+   }else{
+      response = await fetch('http://localhost:9001/api/posts/myposts');
+      ourJSON = await response.json();
+   }
 
+  
 
 	for (let i = 0; i < ourJSON.length; i++) {
 		//Get Author data of post
@@ -210,8 +221,16 @@ async function getPosts() {
 
 
 		//luis Addition to set the side bar of the profile page
-		const gettingUser = await fetch('http://localhost:9001/myaccount');
-		const user = await gettingUser.json();
+		let gettingUser = null;
+		let user = null;
+
+      if(email != null){
+         gettingUser = await fetch('http://localhost:9001/user/' + email);
+         user = await gettingUser.json();
+      }else{
+         gettingUser = await fetch('http://localhost:9001/myaccount');
+         user = await gettingUser.json();
+      }
 
 		let profilename = document.getElementById('profileName');
 		profilename.innerText = (user.firstName + " " + user.lastName);

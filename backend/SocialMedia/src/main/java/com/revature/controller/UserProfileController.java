@@ -97,7 +97,7 @@ public class UserProfileController {
 		}
 	}
 	
-	@GetMapping(value = "/user/email")
+	@PostMapping(value = "/user/email")
 	public UserProfile getUserProfileByEmail(@RequestBody String email) {
 		UserProfile user = serv.findByEmail(email);
 		if (user == null) {

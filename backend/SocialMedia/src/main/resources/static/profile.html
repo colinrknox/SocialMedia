@@ -13,6 +13,7 @@
     <script src="./assets/js/updateAbout.js" defer></script>
     <script src="./assets/js/createPost.js" defer></script>
     <script src="./assets/js/UserProfilePage.js" defer></script>
+    <script src="./assets/js/ViewFriends.js" defer></script>
 
 </head>
 <body>
@@ -72,7 +73,7 @@
                     <a class="navbar-list__navbar-item-link" href="feed.html">feed</a>
                 </li>
                 <li class="navbar-list__navbar-item pointer">
-                    <input class="navbar-list__search-input form-control" placeholder="search users"/>
+                    <input onkeyup="viewFriends(this)" class="navbar-list__search-input form-control" placeholder="search users"/>
                 </li>
             </div>
             <li class="navbar-list__navbar-item pointer">
