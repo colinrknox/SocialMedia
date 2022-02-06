@@ -39,7 +39,7 @@ public class UserPostController {
 	}
 	
 	@PostMapping("/posts/add/photo/{postId}")
-	public void savePostImage(HttpServletRequest req, @RequestParam Integer postId, @RequestBody byte[] img) {
+	public void savePostImage(HttpServletRequest req, @PathVariable Integer postId, @RequestBody byte[] img) {
 		if (img == null) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No image provided");
 		}

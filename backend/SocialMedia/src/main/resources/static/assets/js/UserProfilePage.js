@@ -4,8 +4,8 @@ window.onload = function () {
 		location.href = 'http://localhost:9001/login.html';
 	}
 	document.getElementById("new_post_form").onsubmit = createPost;
+	document.getElementById("about").onsubmit = updateAbout;
 	getPosts();
-
 }
 
 //Functoion to create like and change color of heart icon
@@ -254,13 +254,17 @@ async function getPosts() {
 
 }
 
+/***************************************
+ * SAVE POST FUNCTIONALITY
+ ***************************************/
 
 function createPost(event) {
 	event.preventDefault();
 	console.log("createPost");
 
 	let text = document.getElementById("new_post_text").value;
-	let image = document.getElementById("new_post_image").files[0];
+	let image = document.getElementById('new_post_image').files[0];
+	console.log(image);
 	submitNewPost(text, image);
 }
 
@@ -273,33 +277,24 @@ async function submitNewPost(text, image) {
 		"text": text
 	})
 
-	let post = await fetch(`http://localhost:9001/api/posts/create`, {
+	let response = await fetch(`http://localhost:9001/api/posts/create`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
 		},
 		body: postBody
-
-	}).then(response => {
-		if (response.ok) {
-			console.log("Create post success");
-			// document.getElementById("about_info").innerText = about;
-		} else {
-			console.log("Create post Failed #1");
-		}
-	}).then(data => { return data; }).catch(error => {
-		console.log("Create post Failed #2");
-		console.log("error => ", error);
 	});
+	if (!response.ok) {
+		console.log('Create post failed');
+		return;
+	}
+	let postObj = await response.json();
 
-	if (image) {
-		await fetch(`http://localhost:9001/posts/add/photo/${post.id}`, {
+	if (image && postObj) {
+		await fetch(`http://localhost:9001/api/posts/add/photo/${postObj.id}`, {
 			method: 'POST',
-			headers: {
-				'Content-type': image.type
-			},
 			body: image
-		}).then(respose => {
+		}).then(response => {
 			if (response.ok) {
 				console.log('image added to post');
 			} else {
@@ -307,6 +302,41 @@ async function submitNewPost(text, image) {
 			}
 		});
 	}
-
 	getPosts();
+}
+
+/***************************************
+ * SAVE ABOUT FUNCTIONALITY
+ ***************************************/
+
+function updateAbout(event) {
+    console.log("updateAbout");
+
+    event.preventDefault();
+
+    let about = document.getElementById("about_info_popup").value;
+
+    submitUpdateAbout(about);
+}
+
+async function submitUpdateAbout(about) {
+    console.log("submitUpdateAbout");
+    console.log("about ===> ", about);
+
+    let result = await fetch(`http://${LOCAL_HOST}/about/save`, {
+        method: 'POST',
+        body: about
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log("About update success");
+            document.getElementById("about_info").innerText = about;
+        } else {
+            console.log("About update Failed #1");
+        }
+    })
+    .catch(error => {
+        console.log("About update Failed #2");
+        console.log("error => ", error);
+    });
 }
