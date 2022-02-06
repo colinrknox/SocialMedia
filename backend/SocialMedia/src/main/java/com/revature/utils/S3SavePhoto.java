@@ -61,4 +61,26 @@ public class S3SavePhoto {
 		
 		return "https://" + buckets.get(0).name() + ".s3." + Region.US_EAST_2.toString() + ".amazonaws.com/" + key;
 	}
+	
+	public String savePostPhoto(Integer id, byte[] img, String contentType) {
+		S3Client client = S3Client.builder()
+				.region(Region.US_EAST_2)
+				.build();
+		
+		List<Bucket> buckets = client.listBuckets().buckets();
+		if (buckets.isEmpty()) {
+			throw new RuntimeException("No AWS buckets found");
+		}
+		String keyDir = "post/";
+		String key = keyDir + String.valueOf(post.getId());
+		PutObjectRequest req = PutObjectRequest.builder()
+				.bucket(buckets.get(0).name())
+				.key(key)
+				.contentType(contentType)
+				.build();
+		
+		client.putObject(req, RequestBody.fromBytes(img));
+		
+		return "https://" + buckets.get(0).name() + ".s3." + Region.US_EAST_2.toString() + ".amazonaws.com/" + key;
+	}
 }

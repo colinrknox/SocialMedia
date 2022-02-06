@@ -1,41 +1,53 @@
 const sendPostBtn = document.getElementById("new_post_form");
 
+
 const createNewPost = (event) => {
     event.preventDefault();
-    console.log("event => ", event);
-
-    console.log("createNewPost");
 
     let text = document.getElementById("new_post_text").value;
     let image = document.getElementById("new_post_image").files[0];
-    console.log("text", text);
-    console.log("image", image);
-
     submitNewPost(text, image);
 };
 
 sendPostBtn.addEventListener("submit", createNewPost);
 
-const submitNewPost = async (text, image) => {
-    console.log("submitNewPost");
-    console.log("text", text);
-    console.log("image", image);
+function handleErrors(response) {
+    if (!(response.status === 200 || response.status === 204)) {
+        return response.json()
+            .then(response => {
+                return Promise.reject({ code: response.status, message: response.message });
+            })
+            .catch(err => {
+                throw err;
+            });
+    } else {
+        return response.status === 200 ? response.json() : new Promise(function (resolve, reject) {
+            resolve();
+        });
+    }
+}
 
-    let postBody = {
-        post: text,
-        img: image,
+const submitNewPost = async (text, image) => {
+    const formData = new FormData();
+    formData.append('file', image);
+    formData.append('text', text);
+    const config = {
+        headers: {
+            'content-type': 'multipart/form-data' // TODO - remove?
+        }
     };
-    console.log("postBody===>", postBody);
-    let post = await fetch(`http://${LOCAL_HOST}/api/posts/create`, {
-        method: "POST",
-        // headers: {
-        //     'Content-Type': 'application/json'
-        // },
-        body: postBody,
+
+    const url = `http://${LOCAL_HOST}/api/posts/create`;
+
+    return fetch(url, {
+        method: 'POST',
+        body: formData,
+        config: config
     })
         .then((response) => {
             if (response.ok) {
                 console.log("Create post success");
+                document.getElementById("new_post_form").reset();
             } else {
                 console.log("Create post Failed #1");
             }
