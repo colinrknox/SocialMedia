@@ -33,7 +33,7 @@ public class S3SavePhoto {
 	 * @return a UserProfile with the photo attribute set to the url
 	 * 		of the stored photo
 	 */
-	public UserProfile savePhoto(byte[] img, String contentType) {
+	public String savePhoto(byte[] img, String contentType) {
 		if (user == null) {
 			return savePhoto(post.getId(), img, contentType, "post/");
 		} else {
@@ -41,7 +41,7 @@ public class S3SavePhoto {
 		}
 	}
 	
-	private UserProfile savePhoto(Integer id, byte[] img, String contentType, String keyDir) {
+	private String savePhoto(Integer id, byte[] img, String contentType, String keyDir) {
 		S3Client client = S3Client.builder()
 				.region(Region.US_EAST_2)
 				.build();
@@ -50,7 +50,7 @@ public class S3SavePhoto {
 		if (buckets.isEmpty()) {
 			throw new RuntimeException("No AWS buckets found");
 		}
-		String key = keyDir + String.valueOf(user.getId());
+		String key = keyDir + String.valueOf(id);
 		PutObjectRequest req = PutObjectRequest.builder()
 				.bucket(buckets.get(0).name())
 				.key(key)
@@ -58,7 +58,7 @@ public class S3SavePhoto {
 				.build();
 		
 		client.putObject(req, RequestBody.fromBytes(img));
-		user.setPhoto("https://" + buckets.get(0).name() + ".s3." + Region.US_EAST_2.toString() + ".amazonaws.com/" + key);
-		return user;
+		
+		return "https://" + buckets.get(0).name() + ".s3." + Region.US_EAST_2.toString() + ".amazonaws.com/" + key;
 	}
 }

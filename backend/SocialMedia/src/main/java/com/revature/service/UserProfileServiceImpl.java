@@ -18,6 +18,7 @@ import com.revature.dao.UserProfileDao;
 import com.revature.model.ResetToken;
 import com.revature.model.UserProfile;
 import com.revature.utils.PasswordHash;
+import com.revature.utils.ProfanityFilter;
 import com.revature.utils.S3SavePhoto;
 
 @Service
@@ -33,6 +34,11 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Override
 	public Optional<UserProfile> findById(int id) {
 		return repo.findById(id);
+	}
+	
+	@Override
+	public UserProfile findByEmail(String email) {
+		return repo.findByEmail(email);
 	}
 
 	@Override
@@ -63,26 +69,28 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	@Override
 	public UserProfile saveAbout(UserProfile user, String about) {
-		user.setAbout(about);
+		ProfanityFilter filter = new ProfanityFilter(about);
+		user.setAbout(filter.getFiltered());
 		return repo.save(user);
 	}
 
 	@Override
 	public UserProfile saveProfileImage(UserProfile user, byte[] img, String contentType) throws RuntimeException {
 		S3SavePhoto s3Bucket = new S3SavePhoto(user);
-		user = s3Bucket.savePhoto(img, contentType);
+		user.setPhoto(s3Bucket.savePhoto(img, contentType));
 		return repo.save(user);
 	}
 
 	@Override
-	public void generateResetPassword(String email) {
+	public UserProfile generateResetPassword(String email) {
 		UserProfile user = repo.findByEmail(email);
 		if (user == null) {
-			throw new RuntimeException("User not found");
+			return null;
 		}
+		
 		String token = UUID.randomUUID().toString();
 		String subject = "Password Reset";
-		String resetUrl = "http://localhost:8080/resetpassword?token=" + token;
+		String resetUrl = "http://localhost:9001/resetpassword.html?token=" + token;
 		String body = "Please reset your email here:\r\n";
 		
 		MimeMessage message = mailSender.createMimeMessage();
@@ -96,9 +104,12 @@ public class UserProfileServiceImpl implements UserProfileService {
 			tokenRepo.save(new ResetToken(token, user));
 		} catch (MailException e) {
 			e.printStackTrace();
+			return null;
 		} catch (MessagingException e) {
 			e.printStackTrace();
+			return null;
 		}
+		return user;
 	}
 	
 	@Override

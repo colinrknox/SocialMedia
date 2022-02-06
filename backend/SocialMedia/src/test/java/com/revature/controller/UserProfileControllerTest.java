@@ -300,7 +300,23 @@ class UserProfileControllerTest {
 	
 	@Test
 	void testPasswordRecovery() {
-		controller.passwordRecovery(email);
+		when(mockService.generateResetPassword(email)).thenReturn(null);
+		
+		ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> {
+			controller.passwordRecovery(email);
+		});
+		
+		String expectedReason = "Email not found";
+		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
+		Integer expectedCode = 400;
+		
+		String actualReason = e.getReason();
+		HttpStatus actualStatus = e.getStatus();
+		Integer actualCode = e.getRawStatusCode();
+		
+		assertEquals(expectedReason, actualReason);
+		assertEquals(expectedStatus, actualStatus);
+		assertEquals(expectedCode, actualCode);
 		
 		verify(mockService, times(1)).generateResetPassword(email);
 	}
