@@ -55,6 +55,8 @@ async function getPosts() {
 	let response = null;
 	let ourJSON = null;
 	if (email != null) {
+		let element = document.getElementsByClassName("new-post")[0];
+		element.remove();
 		response = await fetch('http://localhost:9001/api/posts/' + email);
 		ourJSON = await response.json();
 	} else {
@@ -84,9 +86,10 @@ async function getPosts() {
 	let profilePic = document.getElementById('user_photo');
 	profilePic.src = user.photo;
 
-	let profilePic2 = document.getElementById('profilePic2');
-	profilePic2.src = user.photo;
-
+	if (email == null){
+		let profilePic2 = document.getElementById('profilePic2');
+		profilePic2.src = user.photo;
+	}
 
 	for (let i = 0; i < ourJSON.length; i++) {
 		//Get Author data of post
