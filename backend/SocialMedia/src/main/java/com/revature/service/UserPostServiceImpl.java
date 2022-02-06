@@ -93,7 +93,7 @@ public class UserPostServiceImpl implements UserPostService {
 	public void setPostRepo(UserPostDao postRepo) {
 		this.postRepo = postRepo;
 	}
-	
+
 	@Autowired
 	public void setCommentRepo(PostCommentDao commentRepo) {
 		this.commentRepo = commentRepo;
@@ -105,3 +105,4 @@ public class UserPostServiceImpl implements UserPostService {
 //		return null;
 //	}
 }
+

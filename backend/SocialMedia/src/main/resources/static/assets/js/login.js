@@ -30,6 +30,7 @@ async function login(email, password) {
     .then(response  => {
         if (response.ok) {
             loginFailAlert.classList.add('d-none');
+            sessionStorage['loggedIn'] = true;
             location.href = `http://${LOCAL_HOST}/feed.html`;
         } else {
             console.log("Login Failed");

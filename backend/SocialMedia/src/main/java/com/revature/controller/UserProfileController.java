@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.revature.model.UserProfile;
 import com.revature.service.UserProfileService;
@@ -97,7 +98,7 @@ public class UserProfileController {
 		}
 	}
 	
-	@GetMapping(value = "/user/email")
+	@PostMapping(value = "/user/email")
 	public UserProfile getUserProfileByEmail(@RequestBody String email) {
 		UserProfile user = serv.findByEmail(email);
 		if (user == null) {

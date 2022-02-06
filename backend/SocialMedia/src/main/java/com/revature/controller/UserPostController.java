@@ -2,10 +2,8 @@ package com.revature.controller;
 
 import java.io.IOException;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
-
 import com.revature.model.PostComment;
 import com.revature.model.PostLike;
 import com.revature.model.UserPost;
@@ -52,7 +49,7 @@ public class UserPostController {
 	}
 
 	@PostMapping("/posts/add/photo/{postId}")
-	public void savePostImage(HttpServletRequest req, @RequestParam Integer postId, @RequestBody byte[] img) {
+	public void savePostImage(HttpServletRequest req, @PathVariable Integer postId, @RequestBody byte[] img) {
 		if (img == null) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No image provided");
 		}
@@ -67,7 +64,6 @@ public class UserPostController {
 
 	// Added by LuisR
 	@GetMapping("/posts/{author}")
-
 	public List<UserPost> getAuthorPosts(@PathVariable Integer author) {
 		return serv.findUserPostsDesc(author);
 	}

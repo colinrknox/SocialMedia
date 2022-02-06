@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Revature's Social Network</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/main.css">
     <script src="./assets/js/updateAbout.js" defer></script>
     <script src="./assets/js/updateProfilePhoto.js" defer></script>
@@ -14,15 +18,16 @@
     <script src="./assets/js/likePost.js" defer></script>
     <script src="./assets/js/createPost.js" defer></script>
     <script src="./assets/js/UserProfilePage.js" defer></script>
-
-
+    <script src="./assets/js/ViewFriends.js" defer></script>
 </head>
+
 <body>
     <div id="popup" class="popup-background">
         <div class="popup">
             <div class="login-container__wrapper">
                 <div class="login-container">
-                    <img onclick="closePopup()" class="login-container__cross pointer" src="./assets/images/icons/times.svg"/>
+                    <img onclick="closePopup()" class="login-container__cross pointer"
+                        src="./assets/images/icons/times.svg" />
                     <h4 class="header">Edit About info</h4>
                     <form id="about" class="form">
                         <textarea class="input" id="about_info_popup" type="text" name="username" rows="20" cols="20">
@@ -42,8 +47,9 @@
         </div>
     </div>
     <nav class="navbar-mobile__menu-opener">
-        <input class="form-control navbar-mobile__input"/>
-        <img class="p-16" src="./assets/images/icons/menu-hamburger.svg" alt="open mobile menu button (click to open mobile menu)">
+        <input class="form-control navbar-mobile__input" />
+        <img class="p-16" src="./assets/images/icons/menu-hamburger.svg"
+            alt="open mobile menu button (click to open mobile menu)">
     </nav>
     <nav id="mobile-menu" class="navbar-mobile">
         <div class="navbar-mobile__top">
@@ -59,7 +65,7 @@
             <a href="feed.html">
                 <li class="navbar-list__navbar-item pt-8">feed</li>
             </a>
-            <a href="#logout">
+            <a href="/logout.html">
                 <li class="navbar-list__navbar-item pt-8">logout</li>
             </a>
         </ul>
@@ -74,13 +80,20 @@
                     <a class="navbar-list__navbar-item-link" href="feed.html">feed</a>
                 </li>
                 <li class="navbar-list__navbar-item pointer">
-                    <input class="navbar-list__search-input form-control" placeholder="search users"/>
+                    <input onkeyup="viewFriends(this)" class="navbar-list__search-input form-control"
+                        placeholder="search users" />
                 </li>
             </div>
             <li class="navbar-list__navbar-item pointer">
                 <!-- <a class="navbar-list__navbar-item-link" href="#login">login</a> -->
-                <a class="navbar-list__navbar-item-link" href="#logout">
-                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sign-out-alt" class="navbar-list__navbar-item-link-icon svg-inline--fa fa-sign-out-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path class="icon" d="M497 273L329 441c-15 15-41 4.5-41-17v-96H152c-13.3 0-24-10.7-24-24v-96c0-13.3 10.7-24 24-24h136V88c0-21.4 25.9-32 41-17l168 168c9.3 9.4 9.3 24.6 0 34zM192 436v-40c0-6.6-5.4-12-12-12H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h84c6.6 0 12-5.4 12-12V76c0-6.6-5.4-12-12-12H96c-53 0-96 43-96 96v192c0 53 43 96 96 96h84c6.6 0 12-5.4 12-12z"></path></svg>
+                <a class="navbar-list__navbar-item-link" href="/logout.html">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sign-out-alt"
+                        class="navbar-list__navbar-item-link-icon svg-inline--fa fa-sign-out-alt fa-w-16" role="img"
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path class="icon"
+                            d="M497 273L329 441c-15 15-41 4.5-41-17v-96H152c-13.3 0-24-10.7-24-24v-96c0-13.3 10.7-24 24-24h136V88c0-21.4 25.9-32 41-17l168 168c9.3 9.4 9.3 24.6 0 34zM192 436v-40c0-6.6-5.4-12-12-12H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h84c6.6 0 12-5.4 12-12V76c0-6.6-5.4-12-12-12H96c-53 0-96 43-96 96v192c0 53 43 96 96 96h84c6.6 0 12-5.4 12-12z">
+                        </path>
+                    </svg>
                 </a>
             </li>
         </ul>
@@ -89,15 +102,13 @@
         <div class="main__left">
             <section class="profile">
                 <div class="round-avatar__container">
-                    <img class="round-avatar__avatar" id="user_photo" src="./assets/images/avatar.jpeg" alt="avatar"/>
+                    <img id="profilePic" class="round-avatar__avatar" src="./assets/images/avatar.jpeg" alt="avatar" />
+                    <!-- picture -->
                     <div class="change-avatar__container pointer">
-                        <input type="file" name="update_user_photo" id="update_user_photo" style="display:none;" />
-                        <label for="update_user_photo">
-                            <img class="change-avatar__image pointer" src="./assets/images/icons/camera.svg" alt="camera" />
-                        </label>
+                        <img class="change-avatar__image" src="./assets/images/icons/camera.svg" alt="camera" />
                     </div>
                 </div>
-                <h1 class="profile__name">Ariella Deon Kemp Williamson</h1>
+                <h1 id="profileName" class="profile__name">Text for the name of the profile about</h1>
                 <!-- <h2 class="profile__friends-count">340 friends</h2> -->
             </section>
             <!-- <section class="profile">
@@ -108,17 +119,17 @@
             </section> -->
             <section class="about">
                 <div class="about__top-container">
-                    <img onclick="openPopup()" class="about__edit-image pointer" src="./assets/images/icons/edit.svg"/>
+                    <img onclick="openPopup()" class="about__edit-image pointer" src="./assets/images/icons/edit.svg" />
                 </div>
-                <p id="about_info">Blonde, oily hair almost fully covers a chiseled, time-worn face. Piercing amber eyes, set gracefully within their sockets, watch discreetly over the country they've looked after for so long.
-                    Scars reaching from the right side of the forehead , running towards the right side of her lips and ending above her right eye and leaves an intriguing memory of an unusual alliance.</br></br>The is the face of Ariella Deon Kemp Williamson, a true champion among dwarves. She stands common among others, despite her light frame.</p>
+                <p id="about_info"> Text for the profile about</p>
             </section>
         </div>
         <div class="main__right">
             <section class="new-post">
                 <div class="new-post__left">
                     <div class="round-avatar__container">
-                        <img class="round-avatar__avatar" src="./assets/images/avatar.jpeg" alt="avatar"/>
+                        <img id="profilePic2" class="round-avatar__avatar" src="./assets/images/avatar.jpeg"
+                            alt="avatar" /> <!-- picture 2 -->
                         <!-- <div class="change-avatar__container pointer">
                             <img class="change-avatar__image" src="./assets/images/icons/camera.svg" alt="camera"/>
                         </div> -->
@@ -128,22 +139,23 @@
                 <form class="new-post__right" id="new_post_form" enctype='multipart/form-data'>
                     <h1 class="font-weight-bold">New post</h1>
                     <!-- <input class="form-control mt-3" placeholder="youtube link"/> -->
-                    <textarea class="form-control mt-3" id="new_post_text" placeholder="enter your post here"></textarea>
+                    <textarea class="form-control mt-3" id="new_post_text"
+                        placeholder="enter your post here"></textarea>
                     <!-- <label class="form-label" for="customFile">Default file input example</label> -->
-                    <input class="form-control mt-3" id="new_post_image" type="file" />
+                    <input class="form-control mt-3" id="new_post_image" type="file" accept="image/*" />
                     <button class="btn btn-primary mt-3">Submit</button>
                 </form>
             </section>
             <section class="posts">
                 <h1 class="font-weight-bold">Posts</h1>
-                <div class="post">
+                <!-- <div class="post">
                     <div class="post__header">
                         <a class="post__avatar-link round-avatar__container" href="#user">
                             <img class="round-avatar__avatar" src="./assets/images/avatar.jpeg" alt="avatar"/>
                         </a>
                         <div class="post__header-right">
                             <a href="#user" class="post__author font-weight-bold">Ariella Deon Kemp Williamson</a>
-                            <!-- <p class="post__date mt-2">Jan 10 2022</p> -->
+                            <p class="post__date mt-2">Jan 10 2022</p>
                         </div>
                     </div>
                     <div class="post__content">
@@ -152,7 +164,7 @@
                         <img class="post__image mt-2" src="./assets/images/nature.jpeg" alt="nature"/>
                     </div>
                     <div class="post__actions">
-                        <!-- <img class="post__like" src="./assets/images/icons/heart-solid.svg"/> -->
+                        <img class="post__like" src="./assets/images/icons/heart-solid.svg"/>
                         <a class="pointer" onclick="like()">
                             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart" id="post_like_icon"
                                 class="post__like pointer svg-inline--fa fa-heart fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
@@ -202,7 +214,8 @@
                             <input class="btn btn-primary ml-40 mt-10" value="Submit" type="submit" />
                         </div>
                     </div>
-                </div>
+                </div> -->
+                <!-- this block that is commented out is the dummy values im not sure if i need to keep it or not so im leaving it here  -->
             </section>
         </div>
     </main>
@@ -218,9 +231,10 @@
                 <a class="footer__link" href="#login">login</a>
             </li> -->
             <li class="footer__list-item">
-                <a class="footer__link" href="#logout">logout</a>
+                <a class="footer__link" href="/logout.html">logout</a>
             </li>
         </ul>
     </footer>
 </body>
+
 </html>
