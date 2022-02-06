@@ -13,7 +13,7 @@ public interface UserPostService {
 
 	int getPostLikes(Integer postId);
 	
-	UserPost createPost(UserProfile user, UserPost post);
+//	UserPost createPost(UserProfile user, UserPost post);
 	
 	void addPostImage(Integer postId, byte[] img, String contentType);
 	
@@ -27,4 +27,6 @@ public interface UserPostService {
 	PostComment createComment(UserProfile user, PostComment comment);
 	
 	List<PostComment> getCommentsDesc(Integer postId);
+
+	UserPost createPost(UserProfile user, UserPost post, byte[] img, String contentType);
 }

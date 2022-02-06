@@ -39,8 +39,17 @@ public class UserPostServiceImpl implements UserPostService {
 		return postRepo.findByAuthorOrderByCreationDateDesc(author);
 	}
 
+//	@Override
+//	public UserPost createPost(UserProfile user, UserPost post) {
+//		ProfanityFilter filter = new ProfanityFilter(post.getText());
+//		post.setCreationDate(Instant.now());
+//		post.setAuthor(user.getId());
+//		post.setText(filter.getFiltered());
+//		return postRepo.save(post);
+//	}
+
 	@Override
-	public UserPost createPost(UserProfile user, UserPost post) {
+	public UserPost createPost(UserProfile user, UserPost post, byte[] img, String contentType) {
 		ProfanityFilter filter = new ProfanityFilter(post.getText());
 		post.setCreationDate(Instant.now());
 		post.setAuthor(user.getId());

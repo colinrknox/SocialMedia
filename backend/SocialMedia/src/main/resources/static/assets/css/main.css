@@ -855,8 +855,8 @@ body {
     margin-left: 1rem;
   }
   .change-avatar__container {
-    bottom: 20px;
-    right: 20px;
+    bottom: 5%;
+    right: 5%;
   }
   .profile {
     padding: 2rem;

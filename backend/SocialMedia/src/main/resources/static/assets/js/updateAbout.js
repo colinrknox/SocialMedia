@@ -4,21 +4,14 @@ const sendBtn = document.getElementById("about");
 
 const updateAbout = (event) => {
     event.preventDefault();
-    //console.log("event => ", event);
-
-    console.log("updateAbout");
 
     let about = document.getElementById("about_info_popup").value;
-    //console.log("about", about);
     submitUpdateAbout(about);
 }
 
 sendBtn.addEventListener('submit', updateAbout);
 
 const submitUpdateAbout = async (about) => {
-    console.log("submitUpdateAbout");
-    console.log("about ===> ", about);
-
     let result = await fetch(`http://${LOCAL_HOST}/about/save`, {
         method: 'POST',
         headers: {
