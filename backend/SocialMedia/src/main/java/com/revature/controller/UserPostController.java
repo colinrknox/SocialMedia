@@ -36,16 +36,10 @@ public class UserPostController {
 		return serv.findAllPostsDesc();
 	}
 
-	@RequestMapping(value = "/posts/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public UserPost createPost(HttpServletRequest req, @RequestParam("file") MultipartFile file,
-			@RequestParam("text") String text) throws IOException {
-
-		byte[] img = file.getBytes();
+	@PostMapping(value = "/posts/create")
+	public UserPost createPost(HttpServletRequest req, @RequestBody String text) throws IOException {
 		UserProfile user = (UserProfile) req.getSession().getAttribute("account");
-		String contentType = req.getContentType();
-		UserPost post = serv.createPost(user, text, img, contentType);
-		serv.addPostImage(post.getId(), img, contentType);
-		return post;
+		return serv.createPost(user, text);
 	}
 
 	@PostMapping("/posts/add/photo/{postId}")

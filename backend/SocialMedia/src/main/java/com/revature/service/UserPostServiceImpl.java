@@ -49,7 +49,7 @@ public class UserPostServiceImpl implements UserPostService {
 //	}
 
 	@Override
-	public UserPost createPost(UserProfile user, String text, byte[] img, String contentType) {
+	public UserPost createPost(UserProfile user, String text) {
 		ProfanityFilter filter = new ProfanityFilter(text);
 		UserPost post = new UserPost();
 		post.setCreationDate(Instant.now());

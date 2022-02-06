@@ -26,5 +26,5 @@ public interface UserPostService {
 	
 	List<PostComment> getCommentsDesc(Integer postId);
 
-	UserPost createPost(UserProfile user, String text, byte[] img, String contentType);
+	UserPost createPost(UserProfile user, String text);
 }

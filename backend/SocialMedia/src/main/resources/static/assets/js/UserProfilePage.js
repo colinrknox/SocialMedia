@@ -274,16 +274,9 @@ async function submitNewPost(text, image) {
 	console.log("text ===> ", text);
 	// console.log("image ===> ", image);
 
-	let postBody = JSON.stringify({
-		"text": text
-	})
-
 	let response = await fetch(`http://localhost:9001/api/posts/create`, {
 		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: postBody
+		body: text
 	});
 	if (!response.ok) {
 		console.log('Create post failed');
@@ -311,62 +304,26 @@ async function submitNewPost(text, image) {
  ***************************************/
 
 function updateAbout(event) {
-    console.log("updateAbout");
+	event.preventDefault();
 
-    event.preventDefault();
-
-    let about = document.getElementById("about_info_popup").value;
-
-    submitUpdateAbout(about);
+	let about = document.getElementById("about_info_popup").value;
+	submitUpdateAbout(about);
 }
 
 async function submitUpdateAbout(about) {
-    console.log("submitUpdateAbout");
-    console.log("about ===> ", about);
-
-    let result = await fetch(`http://${LOCAL_HOST}/about/save`, {
-        method: 'POST',
-        body: about
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log("About update success");
-            document.getElementById("about_info").innerText = about;
-        } else {
-            console.log("About update Failed #1");
-        }
-    })
-    .catch(error => {
-        console.log("About update Failed #2");
-        console.log("error => ", error);
-    });
-}
-
-function updateAbout(event) {
-    event.preventDefault();
-
-    let about = document.getElementById("about_info_popup").value;
-    submitUpdateAbout(about);
-}
-
-async function submitUpdateAbout(about) {
-    let result = await fetch(`http://localhost:9001/about/save`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: about
-    })
-        .then(response => {
-            if (response.ok) {
-                console.log("About update success");
-                document.getElementById("about_info").innerText = about;
-            } else {
-                console.log("About update Failed #1");
-            }
-        })
-        .catch(error => {
-            console.log("About update Failed #2");
-            console.log("error => ", error);
-        });
+	let result = await fetch(`http://localhost:9001/about/save`, {
+		method: 'POST',
+		body: about
+	}).then(response => {
+		if (response.ok) {
+			console.log("About update success");
+			document.getElementById("about_info").innerText = about;
+		} else {
+			console.log("About update Failed #1");
+		}
+	})
+		.catch(error => {
+			console.log("About update Failed #2");
+			console.log("error => ", error);
+		});
 }
