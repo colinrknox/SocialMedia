@@ -60,6 +60,30 @@ async function getPosts() {
 		ourJSON = await response.json();
 	}
 
+	//luis Addition to set the side bar of the profile page
+	let gettingUser = null;
+	let user = null;
+
+	if (email != null) {
+		gettingUser = await fetch('http://localhost:9001/user/' + email);
+		user = await gettingUser.json();
+	} else {
+		gettingUser = await fetch('http://localhost:9001/myaccount');
+		user = await gettingUser.json();
+	}
+
+	let profilename = document.getElementById('profileName');
+	profilename.innerText = (user.firstName + " " + user.lastName);
+
+	let profileInfo = document.getElementById('about_info');
+	profileInfo.innerText = user.about;
+
+
+	let profilePic = document.getElementById('user_photo');
+	profilePic.src = user.photo;
+
+	let profilePic2 = document.getElementById('profilePic2');
+	profilePic2.src = user.photo;
 
 
 	for (let i = 0; i < ourJSON.length; i++) {
@@ -223,31 +247,6 @@ async function getPosts() {
 		let container = document.getElementsByClassName("posts")[0];
 		container.appendChild(div1);
 	}
-
-	//luis Addition to set the side bar of the profile page
-	let gettingUser = null;
-	let user = null;
-
-	if (email != null) {
-		gettingUser = await fetch('http://localhost:9001/user/' + email);
-		user = await gettingUser.json();
-	} else {
-		gettingUser = await fetch('http://localhost:9001/myaccount');
-		user = await gettingUser.json();
-	}
-
-	let profilename = document.getElementById('profileName');
-	profilename.innerText = (user.firstName + " " + user.lastName);
-
-	let profileInfo = document.getElementById('about_info');
-	profileInfo.innerText = user.about;
-
-
-	let profilePic = document.getElementById('user_photo');
-	profilePic.src = user.photo;
-
-	let profilePic2 = document.getElementById('profilePic2');
-	profilePic2.src = user.photo;
 }
 
 /***************************************
