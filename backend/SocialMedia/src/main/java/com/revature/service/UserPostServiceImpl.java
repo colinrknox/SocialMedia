@@ -39,9 +39,19 @@ public class UserPostServiceImpl implements UserPostService {
 		return postRepo.findByAuthorOrderByCreationDateDesc(author);
 	}
 
+//	@Override
+//	public UserPost createPost(UserProfile user, UserPost post) {
+//		ProfanityFilter filter = new ProfanityFilter(post.getText());
+//		post.setCreationDate(Instant.now());
+//		post.setAuthor(user.getId());
+//		post.setText(filter.getFiltered());
+//		return postRepo.save(post);
+//	}
+
 	@Override
-	public UserPost createPost(UserProfile user, UserPost post) {
-		ProfanityFilter filter = new ProfanityFilter(post.getText());
+	public UserPost createPost(UserProfile user, String text, byte[] img, String contentType) {
+		ProfanityFilter filter = new ProfanityFilter(text);
+		UserPost post = new UserPost();
 		post.setCreationDate(Instant.now());
 		post.setAuthor(user.getId());
 		post.setText(filter.getFiltered());
@@ -52,7 +62,7 @@ public class UserPostServiceImpl implements UserPostService {
 	public void addPostImage(Integer postId, byte[] img, String contentType) {
 		UserPost post = postRepo.getById(postId);
 		S3SavePhoto s3Bucket = new S3SavePhoto(post);
-		post.setImage(s3Bucket.savePhoto(img, contentType));
+		post.setImage(s3Bucket.savePostPhoto(postId, img, contentType));
 		postRepo.save(post);
 	}
 
@@ -88,5 +98,11 @@ public class UserPostServiceImpl implements UserPostService {
 	public void setCommentRepo(PostCommentDao commentRepo) {
 		this.commentRepo = commentRepo;
 	}
+
+//	@Override
+//	public UserPost createPost(UserProfile user, String text, byte[] img, String contentType) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }
 

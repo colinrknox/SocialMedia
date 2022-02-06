@@ -5,6 +5,7 @@ window.onload = function () {
 	}
 	document.getElementById("new_post_form").onsubmit = createPost;
 	document.getElementById("about").onsubmit = updateAbout;
+	document.getElementById("about").addEventListener('submit', updateAbout);
 	getPosts();
 }
 
@@ -339,4 +340,33 @@ async function submitUpdateAbout(about) {
         console.log("About update Failed #2");
         console.log("error => ", error);
     });
+}
+
+function updateAbout(event) {
+    event.preventDefault();
+
+    let about = document.getElementById("about_info_popup").value;
+    submitUpdateAbout(about);
+}
+
+async function submitUpdateAbout(about) {
+    let result = await fetch(`http://localhost:9001/about/save`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: about
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log("About update success");
+                document.getElementById("about_info").innerText = about;
+            } else {
+                console.log("About update Failed #1");
+            }
+        })
+        .catch(error => {
+            console.log("About update Failed #2");
+            console.log("error => ", error);
+        });
 }
