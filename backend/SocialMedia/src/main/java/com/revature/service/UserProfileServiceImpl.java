@@ -121,9 +121,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 		String[] tokens = user.getPassword().split(":");
 		// Hash the password
 		hash = PasswordHash.builder()
-				.setSalt(tokens[0])
+				.setSalt(tokens[1])
 				.setPassword(newPassword)
-				.setIterations(tokens[2])
+				.setIterations(tokens[0])
 				.build();
 		user.setPassword(hash.getDbPassword());
 		// Set user profile's password to the new hash
